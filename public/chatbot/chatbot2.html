@@ -1,12 +1,180 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>AIBRIL Studio Chatbot</title>
+		<script src="/public/chatbot/v1/js/jquery.js"></script>
+	<!-- <script src="http://localhost:8888/resources/js/jquery.js"></script> -->
 
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="/public/chatbot/v1/js/bootstrap.min.js"></script>
+    <!-- js 추가 -->
+	<script src="/public/chatbot/v1/js/aes_render.js"></script>
+	<script src="/public/chatbot/v1/js/aes_sdk.js"></script>
+  <script src="/public/chatbot/v1/js/service.js"></script>
+	<script src="/public/chatbot/v1/js/jquery.bxslider.js"></script>
+	<script src="/public/chatbot/v1/js/jquery.tmpl.js"></script>
+	<script src="/public/chatbot/v1/js/jquery.tmplPlus.js"></script>
+	<script src="/public/chatbot/v1/js/loading.js"></script>
+	<script src="/public/chatbot/v1/js/jquery.sliderPro.min.js"></script>
 
+	<script id="achat_input_text" type="text/j-query-tmpl">
+		<p class='user'><span> {{html result}} </span></p>
+	</script>
+	<script id="achat_output_text" type="text/j-query-tmpl">
+    {{each(i, item) img}}
+        <p class='aibril'><img src='{{html item}}' width='80%'></p>
+    {{/each}}
 
+    {{each(i, item) result}}
+        <p class='aibril'><span class='box'><span> {{html item}} </span></span></p>
+    {{/each}}
+	</script>
+	<script id="achat_output_url" type="text/j-query-tmpl">
+    <div class='aibril'>
+
+        <div class='listBox' style='width:70%;'>
+            <p class='ask'>
+                {{each(i, item) img}}
+                    <img src='{{html item}}' width='100%'>
+                {{/each}}
+
+                {{each(i, item) result}}
+                    <span>{{html item}}</span>
+                {{/each}}
+            </p>
+            <ul class='selection'>
+                {{each(i, item) content}}
+                    <li><a href='{{html item.url}}' target='_blank'>{{html item.title}}</a></li>
+                {{/each}}
+            </ul>
+        </div>
+    </div>
+	</script>
+	<script id="achat_output_list" type="text/j-query-tmpl">
+    <div class='aibril'>
+        <div class='listBox' style='width:70%;'>
+            <p class='ask'>
+                {{each(i, item) img}}
+                    <img src='{{html item}}' width='100%'>
+                {{/each}}
+
+                {{each(i, item) result}}
+                    <span>{{html item}}</span>
+                {{/each}}
+            </p>
+            <ul class='selection2'>
+                {{each(i, item) content}}
+                    <li><a name='lists' href='#none' response='{{html item.response}}'><em>{{html item.title}}</em></a></li>
+                {{/each}}
+            </ul>
+        </div>
+    </div>
+	</script>
+	<script id="achat_output_button" type="text/j-query-tmpl">
+	<div class='tagWrap' style='width:100%; text-align:center;'>
+		<div class='tagControl'>
+			<a class='bx-next'>Next</a>
+            <a class='bx-prev'>Prev</a>
+        </div>
+        <div class='taglist' style='display:inline-block;'>
+            <div>
+            {{each(i,item) content}}
+                <div class='tagBox'>
+                    <a name='tagbox' href='#none' response='{{html item.response}}'><em>{{html item.title}}</em></a>
+                </div>
+            {{/each}}
+            </div>
+        </div>
+    </div>
+	</script>
+	<script id="achat_output_img_slider" type="text/j-query-tmpl">
+
+    <div class='aibril'>
+        <div class='listBox' style='width:100%;'>
+	       <div class="slider-pro" id="my-slider">
+		      <div class="sp-slides">
+			     {{each(i,item) content}}
+				        <div class="sp-slide">
+					       <img class="sp-image" src="{{html item.img_url}}" width="100%"/>
+					       <h3 class="sp-layer">{{html item.img_title}}</h3>
+				        </div>
+			     {{/each}}
+		      </div>
+	       </div>
+        </div>
+    </div>
+	</script>
+	<script id="achat_output_init" type="text/j-query-tmpl">
+	<div class='tagWrap' style='width:100%; text-align:center;'>
+		<div class='tagControl'>
+			<a class='bx-next'>Next</a>
+            <a class='bx-prev'>Prev</a>
+        </div>
+        <div class='taglist' style='display:inline-block;'>
+            <div>
+            {{each(i,item) content}}
+                <div class='tagBox'>
+                    <a name='tagbox' href='#none' response='{{html item.response}}'><em>{{html item.title}}</em></a>
+                </div>
+            {{/each}}
+            </div>
+        </div>
+    </div>
+	</script>
+
+	<!-- CSS 추가  -->
+	<link rel="stylesheet" href="/public/chatbot/v1/css/index.css">
+	<link sdk_css rel="stylesheet" href="/public/chatbot/v1/css/style__red.css" id="red_css">
 </head>
-<body>
 
-<div>222 구매자</div>
+<body>
+  	<div id="chatbotwrapper" class="chatbotwrap" style="height:100%; position:absolute; left:50%; transform:translateX(-50%);">
+    	<div id="sidebar-wrapper" class="chatbotInner" style="box-shadow: 10px 10px 20px grey;">
+        	<div class="titArea" id="style-2">
+        	    <p class="title"><span> AIS </span> Chatbot</p>
+        	</div>
+
+        	<div class="converArea" id="style-3">
+        	    <div id="achat_init" class="tagArea3">
+           		</div>
+            	<div id="achat_talk_body" class="converScr">
+
+                	<div id="wsdk_date" style="text-align: center;margin-bottom: 16px;">
+                    	<span id="achat_date">Today , 2018-03-05</span>
+                	</div>
+            	</div>
+        	</div>
+
+        	<div class="converArea2" id="style-3">
+           	<div id="achat_button" class='tagArea'>
+           	</div>
+        </div>
+
+        <div id="question_wrap">
+            <div class="userInputArea">
+                <input type="text" placeholder="질문 입력해 주세요." id="achat_input_message"  disabled>
+                <a href="#none" class="enter" id="achat_send_message"></a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+	$(document).ready(function(){
+    	$('#chatbotwrapper').aesSDK({
+    		firstMsg  :  "안녕하세요. block chain 구매자 Chatbot 입니다.",
+    		api_key : "d34ad044-ac76-4524-b142-3abae781670e",
+        	//wrk_key : "${key}",
+    	    //api_key : "프로젝트 api_key입력해 주세요. 프로젝트 설정 화면에서 확인 가능합니다. ",
+    	    wrkMode : "OP",
+    	    channel : "WEB",
+    	    chatUserId : "123",
+    	    url : "http://52.79.205.160:8080/ais"
+    	    //url : "ais서버가 설치된 url을 입력 해주세요. 예시 http://localhost:8888"
+    	});
+	});
+	</script>
 </body>
 </html>
