@@ -5,20 +5,19 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>AIBRIL Studio Chatbot</title>
-		<script src="/public/chatbot/v1/js/jquery.js"></script>
+		<script src="./v1/js/jquery.js"></script>
 	<!-- <script src="http://localhost:8888/resources/js/jquery.js"></script> -->
 
 	<!-- Latest compiled and minified JavaScript -->
-	<script src="/public/chatbot/v1/js/bootstrap.min.js"></script>
+	<script src="./v1/js/bootstrap.min.js"></script>
     <!-- js 추가 -->
-	<script src="/public/chatbot/v1/js/aes_render.js"></script>
-	<script src="/public/chatbot/v1/js/aes_sdk.js"></script>
-  <script src="/public/chatbot/v1/js/service.js"></script>
-	<script src="/public/chatbot/v1/js/jquery.bxslider.js"></script>
-	<script src="/public/chatbot/v1/js/jquery.tmpl.js"></script>
-	<script src="/public/chatbot/v1/js/jquery.tmplPlus.js"></script>
-	<script src="/public/chatbot/v1/js/loading.js"></script>
-	<script src="/public/chatbot/v1/js/jquery.sliderPro.min.js"></script>
+	<script src="./v1/js/aes_render.js"></script>
+	<script src="./v1/js/aes_sdk.js"></script>
+	<script src="./v1/js/jquery.bxslider.js"></script>
+	<script src="./v1/js/jquery.tmpl.js"></script>
+	<script src="./v1/js/jquery.tmplPlus.js"></script>
+	<script src="./v1/js/loading.js"></script>
+	<script src="./v1/js/jquery.sliderPro.min.js"></script>
 
 	<script id="achat_input_text" type="text/j-query-tmpl">
 		<p class='user'><span> {{html result}} </span></p>
@@ -126,10 +125,10 @@
 	</script>
 
 	<!-- CSS 추가  -->
-	<link rel="stylesheet" href="/public/chatbot/v1/css/index.css">
-	<link sdk_css rel="stylesheet" href="/public/chatbot/v1/css/style__red.css" id="red_css">
+	<link rel="stylesheet" href="./v1/css/index.css">
+	<link sdk_css rel="stylesheet" href="./v1/css/style__red.css" id="red_css">
 </head>
-
+ 
 <body>
   	<div id="chatbotwrapper" class="chatbotwrap" style="height:100%; position:absolute; left:50%; transform:translateX(-50%);">
     	<div id="sidebar-wrapper" class="chatbotInner" style="box-shadow: 10px 10px 20px grey;">
@@ -160,21 +159,22 @@
             </div>
         </div>
     </div>
-
+    
     <script>
 	$(document).ready(function(){
     	$('#chatbotwrapper').aesSDK({
-    		firstMsg  :  "안녕하세요. block chain 판매자 Chatbot 입니다.",
-    		api_key : "e208d8e5-1838-41ce-a4f9-714fc94d160f",
+    		firstMsg  :  "안녕하세요. Aibril Chatbot 입니다.",
+    		api_key : "8fd42cd6-1c1d-47c1-8b3d-b9eebe949706",
         	//wrk_key : "${key}",
     	    //api_key : "프로젝트 api_key입력해 주세요. 프로젝트 설정 화면에서 확인 가능합니다. ",
     	    wrkMode : "OP",
     	    channel : "WEB",
     	    chatUserId : "123",
-    	    url : "http://52.79.205.160:8080/ais"
+    	    url : "http://localhost:8888/ais"
     	    //url : "ais서버가 설치된 url을 입력 해주세요. 예시 http://localhost:8888"
     	});
 	});
 	</script>
 </body>
 </html>
+ 
