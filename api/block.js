@@ -21,8 +21,8 @@ exports.signCreateCertificate = function(req, res){
 	const evaluationAgency = req.body.evaluationAgency;
 	const certificateHash = req.body.certificateHash;
 
-	const preparationUrl = bcmUrl + bcmPort + '/api/v1/certificate/preparation/newInfo?from=' + from + '&bID=' + bID + '&cID=' + cID + '&grade=' + grade + '&evaluationDate=' + evaluationDate + '&evaluationAgency=' + evaluationAgency + '&certificateHash=' + certificateHash;
-	const sendSignedUrl = bcmUrl + bcmPort + '/api/v1/certificate/sendSignedTx';
+	const preparationUrl = bcmUrl + bcmPort + '/api/v1/certificate/preparation/newCertiTxObject?from=' + from + '&bID=' + bID + '&cID=' + cID + '&grade=' + grade + '&evaluationDate=' + evaluationDate + '&evaluationAgency=' + evaluationAgency + '&certificateHash=' + certificateHash;
+	const sendSignedUrl = bcmUrl + bcmPort + '/api/v1/certificate/SignedTx';
 
 	var OPTIONS = {
 			headers:{"Content-Type":"application/json",Accept:"application/json"},
