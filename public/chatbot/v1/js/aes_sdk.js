@@ -228,29 +228,7 @@ var achat = {
 									return;
 								}
 							}
-
-
-							// 학습 필요 시 의도 추천
-							if(achat.options.wrkMode === 'OP'){
-								if(result.context.askAgainFields != undefined){
-									var contentArr = new Array();
-									result.context.achat_ui = new Object();
-									result.context.achat_ui.ui_type = "list";
-									var askAgainFields = result.context.askAgainFields;
-									for(var i=0;i<askAgainFields.length;i++) {
-										if(askAgainFields[i] != null){
-											var jsonItem = new Object();
-											jsonItem["title"] = askAgainFields[i];
-											jsonItem["response"]   = askAgainFields[i];
-											contentArr.push(jsonItem);
-										}
-									}
-
-									result.context.achat_ui.content = contentArr;
-									delete result.context.askAgainFields;
-								}
-							}
-
+							
 
 							if(achat.options.workspaceId == undefined){
 								achat.options.workspaceId = result.workspaceId;
