@@ -143,6 +143,53 @@ select::-ms-expand {
 .contInner .default h1 {background:#f5f5f5 url(../images/logo_3dText.png?ver=1.0) no-repeat center; background-size:70px auto; width:175px; height:175px; margin:0 auto; border-radius:50%;}
 .contInner .default p {width:100%; text-align:center; font-size:0.813em; margin-top:1em;}
 
+button{outline:0; border:0;}
+.btn-type01{font-family:'NotoR'; border-radius:4px; padding:0 23px; line-height:38px; height:40px; font-size:14px; background-color:#fff; border:1px solid #383277; color:#383277; margin:0 1px;}
+.btn-type02{font-family:'NotoR'; border-radius:22px; padding:0 20px; line-height:38px; height:40px; font-size:14px; background-color:#fff; border:1px solid #383277; color:#383277; margin:0 1px;}
+.btn-type-reply{font-family:'NotoM'!important; border-top-right-radius:4px; border-bottom-right-radius:4px; line-height:88px; width:116px; height:90px; font-size:17px; background-color:#fff; border:1px solid #e2e4e9; color:#333;}
+.btn-gray{background-color:#555; color:#fff!important; border:1px solid #555;}
+.btn-skyblue{background-color:#52a3f5; color:#fff!important; border:1px solid #52a3f5;}
+.btn-lightnavy{background-color:#5867dd; color:#fff!important; border:1px solid #5867dd;}
+.btn-redpink{background-color:#ff6565; color:#fff!important; border:1px solid #ff6565;}
+.btn-bluegreen{background-color:#34bfa3; color:#fff!important; border:1px solid #34bfa3;}
+.btn-circle-check{vertical-align:middle; margin:0 2px; border:none; width:20px; height:20px; background:url("../img/btn_circle_check.png") no-repeat center center;}
+.btn-circle-check:hover{background:url("../img/btn_circle_check_on.png") no-repeat center center;}
+.btn-circle-x{vertical-align:middle; margin:0 2px; border:none; width:20px; height:20px; background:url("../img/btn_circle_x.png") no-repeat center center;}
+.btn-circle-x:hover{background:url("../img/btn_circle_x_on.png") no-repeat center center;}
+.btn-circle-minus{vertical-align:middle; margin:0 2px; border:none; width:20px; height:20px; background:url("../img/btn_circle_minus.png") no-repeat center center;}
+.btn-circle-minus:hover{vertical-align:middle; margin:0 2px; border:none; width:20px; height:20px; background:url("../img/btn_circle_minus_on.png") no-repeat center center;}
+.btn-circle-up{vertical-align:middle; margin:0 2px; border:none; width:20px; height:20px; background:url("../img/btn_circle_up.png") no-repeat center center;}
+.btn-circle-up:hover{vertical-align:middle; margin:0 2px; border:none; width:20px; height:20px; background:url("../img/btn_circle_up_on.png") no-repeat center center;}
+.btn-circle-down{vertical-align:middle; margin:0 2px; border:none; width:20px; height:20px; background:url("../img/btn_circle_down.png") no-repeat center center;}
+.btn-circle-down:hover{vertical-align:middle; margin:0 2px; border:none; width:20px; height:20px; background:url("../img/btn_circle_down_on.png") no-repeat center center;}
+.btn-icon-back{display:inline-block; vertical-align:middle; margin:-2px 6px 0 0; width:20px; height:20px; background:url("../img/icon_back.png") no-repeat left center;}
+.btn-icon-up{display:inline-block; vertical-align:middle; margin:-2px 6px 0 0; width:20px; height:20px; background:url("../img/icon_up.png") no-repeat left center;}
+.btn-icon-down{display:inline-block; vertical-align:middle; margin:-2px 6px 0 0; width:20px; height:20px; background:url("../img/icon_down.png") no-repeat left center;}
+.btn-plus{display:inline-block; width:40px; height:40px; background:#666 url("../img/btn_plus.png") no-repeat center center; border-radius:3px; vertical-align:middle;}
+.btn-plus02{display:inline-block; width:40px; height:40px; background:url("../img/icon_circle_plus.png") no-repeat center center; vertical-align:middle; margin-top:-4px;}
+.btn-plus03 {display:inline-block; width:40px; height:40px; background:url("../img/icon_circle_plus.png") no-repeat center center; vertical-align:top; margin-top:-4px;text-indent:-9999em;margin:0 2px;}
+.btn-minus03{display:inline-block; width:40px; height:40px; background:url("../img/icon_circle_minus.png") no-repeat center center; vertical-align:top; margin-top:-4px;text-indent:-9999em;margin:0 2px;}
+.btn-msg-next{position:absolute; right:6px; display:inline-block; width:19px; height:32px; background:url("../img/btn_msg_next.png") no-repeat center center;}
+.btn-msg-next:hover{background:url("../img/btn_msg_next_on.png") no-repeat center center;}
+.btn-msg-prev{display:block; height:20px; line-height:18px; background:url("../img/btn_msg_prev.png") no-repeat left center; font-size:13px; color:#777; padding-left:26px;}
+.btn-msg-prev:hover{background:url("../img/btn_msg_prev_on.png") no-repeat left center;}
+.tbl-btn{margin-left:50px; }
+.btn-icon-del{display:inline-block; vertical-align:middle; margin:-2px 6px 0 0; width:20px; height:20px; background:url("../img/icon_del.png") no-repeat left center;}
+.btn-history{line-height:30px; height:32px; padding:0 20px; font-size:13px; color:#fff; background-color:#666; border-radius:30px;}
+.btn-area .input-file {display:inline-block;vertical-align: top;}
+.btn-area a,
+.btn-area button{margin-left:2px;text-decoration:none;}
+.btn-area .input-file .btn-browse,
+.btn-area .input-file .btn-browse>input[type="file"] {width:auto;}
+.btn-area .txt-cnt {float:left;font-size:14px;padding-top:20px;}
+.btn-password{position:absolute; right:0; top:0; bottom:0; display:inline-block; width:48px; height:40px; background:url("../img/btn_password.png") no-repeat center center; vertical-align:top; font-size:0;}
+.btn-profile-set{vertical-align:middle; position:absolute; bottom:0; right:20px; border:none; width:35px; height:35px; background:url("../img/btn_settings.png") no-repeat center center;}
+.btn-upload,
+.btn-download {width:40px;height:40px;background:url('../img/btn_file_upload.png') no-repeat 0 0;font-size:0;line-height:0;text-indent:-9999em;}
+.btn-download {display:inline-block;background:url('../img/btn_file_download.png') no-repeat 0 0;vertical-align:top;}
+.btn-clipboard {width:40px;height:40px;background:url('../img/btn_clipboard.png') no-repeat 0 0;font-size:0;line-height:0;text-indent:-9999em;}
+.btn-del-reply{position:absolute; top:20px; right:0; font-size:0; vertical-align:middle; border:none; width:20px; height:20px; background:url("../img/btn_del_reply.png") no-repeat center center;}
+.btn-overview{width:29px; height:29px; background:url("../img/btn_overview.png") no-repeat center center; vertical-align:top;}
 
 @media (max-width:1239px){
 
