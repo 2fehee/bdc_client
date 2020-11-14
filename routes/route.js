@@ -7,6 +7,7 @@ module.exports = function(app, api){
 	app.get('/checkLatestCertificate/bID/:bID/cID/:cID/certificateHash/:certificateHash', api.block.checkLatestCertificate);
 	app.get('/newBNFTTxObject', api.block.newBNFTTxObject);
 	app.get('/getBalanceOfBPT/from/:from', api.block.getBalanceOfBPT);
+	app.post('/transferBPT', api.block.transferBPT);
 
 
 

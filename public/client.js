@@ -198,4 +198,44 @@ $(document).ready(function() {
             }
         });
     });
+
+    $("#transferBPT").on('click', function(event) {
+
+        input_data = {};
+
+        //구매자 주소
+        input_data.from = "0xd90DEC0025b43483c8087231768c35B1C70D5ED5";
+        input_data.privateKey = "41328176a9f1b9cca94e482f3f79d1877e8376d1290bf1efdea8f94381a4674d";
+
+        // 판매자 주소
+        input_data.recipient = "0xE0804701Fb5F86bE3fDa9977B590d7899933a278";
+        input_data.amount = 20;
+
+        $.ajax({
+            url : BizUrl + BizPort + '/transferBPT',
+            cache: false,
+            type: 'POST',
+            dataType: 'json',
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(input_data),
+            success : function(result) {
+
+                console.log("받아온 result : " + JSON.stringify(result));
+                $("#createCertificate_result").val(JSON.stringify(result.result));
+
+            },beforeSend:function(){
+                //(이미지 보여주기 처리)
+                $('.wrap-loading').removeClass('display-none');
+            }
+            ,complete:function(){
+                //(이미지 감추기 처리)
+                $('.wrap-loading').addClass('display-none');
+            },
+            error : function(xhr, status, error){
+                console.log("xhr : " + xhr);
+                console.log(error);
+            }
+        });
+
+    });
 });
