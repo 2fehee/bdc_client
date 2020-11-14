@@ -5,6 +5,7 @@ module.exports = function(app, api){
 	app.post('/signCreateCertificate', api.block.signCreateCertificate);
 	app.get('/certificateInfo/bID/:bID/cID/:cID', api.block.certificateInfo);
 	app.get('/checkLatestCertificate/bID/:bID/cID/:cID/certificateHash/:certificateHash', api.block.checkLatestCertificate);
+	app.get('/newBNFTTxObject', api.block.newBNFTTxObject);
 
 
 

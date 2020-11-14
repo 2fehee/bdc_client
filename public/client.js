@@ -130,4 +130,36 @@ $(document).ready(function() {
         $("#checkLatestCertificate_result").val('');
 
     });
+
+    $("#TestAPI").on('click', function(event) {
+        console.log("11111");
+        input_data = {};
+
+        $.ajax({
+            url : BizUrl + BizPort + '/newBNFTTxObject',
+            cache: false,
+            type: 'GET',
+            dataType: 'json',
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(input_data),
+            success : function(result) {
+
+                console.log("받아온 result : " + JSON.stringify(result));
+                $("#createCertificate_result").val(JSON.stringify(result.result));
+
+            },beforeSend:function(){
+                //(이미지 보여주기 처리)
+                $('.wrap-loading').removeClass('display-none');
+            }
+            ,complete:function(){
+                //(이미지 감추기 처리)
+                $('.wrap-loading').addClass('display-none');
+            },
+            error : function(xhr, status, error){
+                console.log("xhr : " + xhr);
+                console.log(error);
+            }
+        });
+
+    });
 });
