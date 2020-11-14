@@ -36,19 +36,23 @@
 
 <div>
     <div>
-        <p> * 인증서 생성 *
-        <p><hr><b>[createCertificate]</b> <button type="button" id="createCertificate_clear">Refresh</button></p>
-        검증자 Address: <input type="text" id="createCertificate_addressFrom" style="width:350px;"><p>
-        검증자 PrivateKey : <input type="text" id="createCertificate_privateKey" style="width:550px;"><p>
-        bID : <input type="text" id="createCertificate_bID" style="width:350px;"><p>
-        cID : <input type="text" id="createCertificate_cID" style="width:350px;"><p>
-        grade : <input type="text" id="createCertificate_grade" style="width:350px;"><p>
-        evaluationDate : <input type="text" id="createCertificate_evaluationDate" style="width:350px;"><p>
-        evaluationAgency : <input type="text" id="createCertificate_evaluationAgency" style="width:350px;"><p>
-        certificateHash : <input type="text" id="createCertificate_certificateHash" style="width:350px;"><p>
-        <input type="file" name="IMG_FILE">
-        <button type="button" id="createCertificate">createCertificate</button>
-        <p> transactionhash : <input type="text" id="createCertificate_result" style=width:350px;">
+        <p> * 인증서 생성 * </p>
+
+        <form id="frmCreateCertificate" >
+            <p><hr><b>[createCertificate]</b> <button type="button" id="createCertificate_clear">Refresh</button></p>
+            검증자 Address: <input type="text" id="createCertificate_addressFrom" name="createCertificate_addressFrom" style="width:350px;" value="0xFE3B557E8Fb62b89F4916B721be55cEb828dBd73"><p>
+            검증자 PrivateKey : <input type="text" id="createCertificate_privateKey" name="createCertificate_privateKey" style="width:550px;" value="8f2a55949038a9610f50fb23b5883af3b4ecb3c3bb792cbcefbd1542c692be63"><p>
+            bID : <input type="text" id="createCertificate_bID" name="createCertificate_bID" style="width:350px;" value="123"><p>
+            cID : <input type="text" id="createCertificate_cID" name="createCertificate_cID" style="width:350px;" value="123"><p>
+            grade : <input type="text" id="createCertificate_grade" name="createCertificate_grade" style="width:350px;" value="123"><p>
+            evaluationDate : <input type="text" id="createCertificate_evaluationDate" name="createCertificate_evaluationDate" style="width:350px;" value="123"><p>
+            evaluationAgency : <input type="text" id="createCertificate_evaluationAgency" name="createCertificate_evaluationAgency" style="width:350px;" value="123"><p>
+            certificateHash : <input type="text" id="createCertificate_certificateHash" name="createCertificate_certificateHash" style="width:350px;" value="123"><p>
+            <input type="file" name="cFile">
+            <button type="button" id="createCertificate">인증서 생성</button>
+        </form>
+
+        <p> transactionhash : <input type="text" id="createCertificate_result" >
     </div>
 </div>
 

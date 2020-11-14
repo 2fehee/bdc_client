@@ -5,7 +5,9 @@ const BizPort = ":6001";
 $(document).ready(function() {
 
     $("#createCertificate").on('click', function(event) {
+        alert('11111');
 
+        /*
         input_data = {};
 
         input_data.from = $("#createCertificate_addressFrom").val();
@@ -17,14 +19,30 @@ $(document).ready(function() {
         input_data.evaluationDate = $("#createCertificate_evaluationDate").val();
         input_data.evaluationAgency = $("#createCertificate_evaluationAgency").val();
         input_data.certificateHash = $("#createCertificate_certificateHash").val();
+        */
+
+        //preventDefault 는 기본으로 정의된 이벤트를 작동하지 못하게 하는 메서드이다. submit을 막음
+        event.preventDefault();
+
+        // Get form
+        var form = $('#frmCreateCertificate')[0];
+
+        // Create an FormData object
+        var data = new FormData(form);
+
 
         $.ajax({
-            url : BizUrl + BizPort + '/signCreateCertificate',
-            cache: false,
+           // url : BizUrl + BizPort + '/signCreateCertificate',
+            url : BizUrl + BizPort + '/upload2',
             type: 'POST',
+            enctype: 'multipart/form-data',
             dataType: 'json',
-            contentType: "application/json; charset=utf-8",
-            data: JSON.stringify(input_data),
+
+            data: data,
+            processData: false,
+            contentType: false,
+            cache: false,
+            timeout: 600000,
             success : function(result) {
 
                 console.log("받아온 result : " + JSON.stringify(result));
