@@ -114,7 +114,7 @@ exports.newBNFTTxObject = function(req, res){
 
 	data = {
 		from : "0xE0804701Fb5F86bE3fDa9977B590d7899933a278",
-		bID : 11,
+		bID : 12,
 		ownerName : "배판매",
 		manufacturerName : "SKI",
 		modelName : "SKI_10",
@@ -260,5 +260,64 @@ exports.getBalanceOfBNFT = function(req, res) {
 	request.get(OPTIONS, function (err, response, result) {
 		console.log("result: " + result);
 		res.json(JSON.parse(result));
+	});
+};
+
+exports.TransferFromBNFT = function(req, res){
+
+	const from = req.body.from;
+	const privateKey = req.body.privateKey;
+
+	const transferFrom = req.body.transferFrom;
+	const transferTo = req.body.transferTo;
+	const bID = req.body.bID;
+
+	data = {
+		from : from,
+		transferFrom : transferFrom,
+		transferTo : transferTo,
+		bID : bID
+	}
+
+	const preparationUrl = bcmUrl + bcmPort + '/api/v1/certificate/preparation/transferFromBNFTTxObject';
+	const sendSignedUrl = bcmUrl + bcmPort + '/api/v1/certificate/SignedTx';
+
+	var OPTIONS = {
+		headers:{"Content-Type":"application/json",Accept:"application/json"},
+		url: preparationUrl,
+		qs: data
+	};
+
+	request.get(OPTIONS, function (err, response, result) {
+
+		var infoObject = result;
+		console.log("infoObject: " + infoObject);
+
+		const web3 = new Web3();
+		web3.transactionConfirmationBlocks = 1;
+
+		const privKey = Buffer.from(privateKey, 'hex');
+		console.log("privKey :" + privKey);
+		var tx = new ethTx(JSON.parse(infoObject).result);
+		tx.sign(privKey);                                         //privateKey로 sign
+
+		var serializedTx = tx.serialize(undefined);                        //sign 결과 값을 직렬화 함
+		var signedData = '0x' + serializedTx.toString('hex');       //hex 값으로 변경
+		console.log("signedData : " + signedData);
+
+		var OPTIONS = {
+			headers: {'Content-Type': 'application/json', 'Authorization': authToken},
+			url: sendSignedUrl,
+			body: JSON.stringify({
+				"signedData": signedData
+			})
+		};
+
+		request.post(OPTIONS, function (err, response, result) {
+			let txResult = result;
+			console.log("txResult: " + txResult);
+			res.json(JSON.parse(txResult));
+		});
+
 	});
 };

@@ -114,6 +114,7 @@ module.exports = function(app, api){
 	app.get('/getBalanceOfBPT/from/:from', api.block.getBalanceOfBPT);
 	app.post('/transferBPT', api.block.transferBPT);
 	app.get('/getBalanceOfBNFT/from/:from', api.block.getBalanceOfBNFT);
+	app.post('/TransferFromBNFT', api.block.TransferFromBNFT);
 
 
 
