@@ -29,7 +29,7 @@
     {{/each}}
 	</script>
 	<script id="checkCertTmpl" type="text/j-query-tmpl">
-		<p class="aibril">
+		<p id="checkCertTmpl"  class="aibril">
 			<span class="box">
 				<span>검증 하시려는 배터리 BID, CID를 입력시고 인증서 파일을 첨부 하세요</span>
 				<span>
@@ -44,7 +44,7 @@
 		</p>
 	</script>
 	<script id="sendTokenTmpl" type="text/j-query-tmpl">
-		<p class="aibril">
+		<p id="sendTokenTmpl" class="aibril">
 			<span class="box">
 				<span>token을 받을 사람의 계정 정보, 이체할 BPT 수, 주인님의 개인키를 입력후 [서명 & token 이체] 버튼을 눌러주세요</span>
 				<span>
@@ -60,14 +60,14 @@
 		</p>
 	</script>
 	<script id="sendTokenRespTmpl" type="text/j-query-tmpl">
-		<p class="user">
+		<p id="sendTokenRespTmpl" class="user">
 			<span class="box">
 				<span>{{html result.recever}}에게 1,000 BPT 이체가 완료 되었습니다. 현재 고객님 계정 잔액은 {{html result.token}} BPT 입니다.</span>
 			</span>
 		</p>
 	</script>
 	<script id="updateOwnerTmpl" type="text/j-query-tmpl">
-		<p class="aibril">
+		<p id="updateOwnerTmpl" class="aibril">
 			<span class="box">
 				<span>배터리 소유권을 받을 사람의 계정 정보, 소유권 이전할 배터리 ID, 주인님의 개인키를 입력후 [서명 & 소유권 이전] 버튼을 눌러주세요</span>
 				<span>
@@ -76,21 +76,21 @@
 					<span style="font-size: 12px; width: 100%;">고객님 주소 : <input id="updateOwnerTmpl_fromId" class="form-style" type="text" value="0xE0804701Fb5F86bE3fDa9977B590d7899933a278"> </span>
 					<span style="font-size: 12px; width: 100%;">고객님 개인키 : <input id="updateOwnerTmpl_fromKey" class="form-style" type="text" value="8d60624a1f2c5eb805a5e6dc8aab9577e9edafa5d5ee867af88f1a7542f86919"> </span>
 					<span style="float: right;">
-				    <button class="btn-type01 btn-redpink" id="sendSignByUpdateOwner">서명</button>
-				  </span>
+						<button class="btn-type01 btn-redpink" id="sendSignByUpdateOwner">서명</button>
+					</span>
 				</span>
 			</span>
 		</p>
 	</script>
 	<script id="updateOwnerRespTmpl" type="text/j-query-tmpl">
-		<p class="aibril">
+		<p id="updateOwnerRespTmpl" class="aibril">
 			<span class="box">
 				<span>배터리 {{html result.bid}}의 소유권을 {{html result.recever}}에게 정상적으로 이전하였습니다.</span>
 			</span>
 		</p>
 	</script>
 	<script id="checkTokenTmpl" type="text/j-query-tmpl">
-		<p class="aibril">
+		<p id="checkTokenTmpl" class="aibril">
 			<span class="box">
 				<span>잔액 확인 할 계정정보를 입력 해 주세요.</span>
 				<span>
@@ -103,7 +103,7 @@
 		</p>
 	</script>
 	<script id="checkOwnerTmpl" type="text/j-query-tmpl">
-		<p class="aibril">
+		<p id="checkOwnerTmpl" class="aibril">
 			<span class="box">
 				<span>소유권 확인 할 계정정보를 입력 해 주세요.</span>
 				<span>

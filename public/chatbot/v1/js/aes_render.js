@@ -17,6 +17,15 @@
 					func : {
 						render_output : function(data){
 
+							if(data.context.tmpl_id != null && typeof(data.context.tmpl_id) != "undefined"){
+								console.log("remove1");
+								if($('p[id="'+data.context.tmpl_id+'"]').size() > 0){
+									console.log("remove2");
+									$('p[id="'+data.context.tmpl_id+'"]').remove();
+								}
+							}
+
+
 							var values = data.output.text;
 							if(data.context.tmpl_id == null || typeof(data.context.tmpl_id) == "undefined"){
 								if(values[0] == ""){
@@ -32,9 +41,12 @@
 
 								$("#sendCert").unbind('click').click(function(){
 									alert('인증서 전송');
+
+									this.callback_message();
 								});
 							}else if (data.context.tmpl_id == "sendTokenTmpl"){
 								console.log("토큰 전송 템플릿");
+
 								$('#'+data.context.tmpl_id).tmpl({ result : result }).appendTo(elem);
 
 								$("#sendSignBySendTOken").unbind('click').click(function(){
@@ -73,49 +85,48 @@
 					            data: JSON.stringify(input_data),
 					            success : function(data) {
 
-					                console.log("받아온 result : " + JSON.stringify(data));
+					                console.log("토큰 전송 인터페이스 받아온 result : " + JSON.stringify(data));
 
-
+													result = new Array();
 													if(data.success){
+															result.push($("#sendTokenTmpl_from").val()+"에게 "+$("#sendTokenTmpl_amount").val()+"BP 보냈습니다.");
+															//$('#achat_output_text').tmpl({ result : result }).appendTo(elem);
 
+															input_data = {};
+											        input_data.from = $("#sendTokenTmpl_from").val();
 
-														result = new Array();
-														result.push($("#sendTokenTmpl_from").val()+"에게 "+$("#sendTokenTmpl_amount").val()+"BP 보냈습니다.");
-														//$('#achat_output_text').tmpl({ result : result }).appendTo(elem);
+											        $.ajax({
+											            url : BizUrl + BizPort + '/getBalanceOfBPT/from/' + input_data.from,
+											            cache: false,
+											            type: 'GET',
+											            dataType: 'json',
+											            contentType: "application/json; charset=utf-8",
+											            data: input_data,
+											            success : function(data) {
 
-														input_data = {};
-										        input_data.from = $("#sendTokenTmpl_receverId").val();
+											                console.log("잔액 확인 인터페이스 받아온 result : " + JSON.stringify(data));
+																			result.push("고객님의 잔액은 "+data.result+"BP 입니다.");
+																			$('#achat_output_text').tmpl({ result : result }).appendTo(elem);
+											                //$("#getBalanceOfBPT_result").val(JSON.stringify(result.result));
 
-										        $.ajax({
-										            url : BizUrl + BizPort + '/getBalanceOfBPT/from/' + input_data.from,
-										            cache: false,
-										            type: 'GET',
-										            dataType: 'json',
-										            contentType: "application/json; charset=utf-8",
-										            data: input_data,
-										            success : function(data) {
-
-										                console.log("받아온 result : " + JSON.stringify(data));
-																		result.push("고객님의 잔액은 "+data.result+"BP 입니다.");
-																		$('#achat_output_text').tmpl({ result : result }).appendTo(elem);
-										                //$("#getBalanceOfBPT_result").val(JSON.stringify(result.result));
-
-										            },beforeSend:function(){
-										                //(이미지 보여주기 처리)
-										                $('.wrap-loading').removeClass('display-none');
-										            }
-										            ,complete:function(){
-										                //(이미지 감추기 처리)
-										                $('.wrap-loading').addClass('display-none');
-										            },
-										            error : function(xhr, status, error){
-										                console.log("xhr : " + xhr);
-										                console.log(error);
-										            }
-										        });
-													}
-
-
+											            },beforeSend:function(){
+											                //(이미지 보여주기 처리)
+											                $('.wrap-loading').removeClass('display-none');
+											            }
+											            ,complete:function(){
+											                //(이미지 감추기 처리)
+											                $('.wrap-loading').addClass('display-none');
+																			$("#achat_talk_body").scrollTop(999999);
+											            },
+											            error : function(xhr, status, error){
+											                console.log("xhr : " + xhr);
+											                console.log(error);
+											            }
+											        });
+														}else{
+															result.push("토큰 전송을 실패 하였습니다.");
+															$('#achat_output_text').tmpl({ result : result }).appendTo(elem);
+														}
 					            },beforeSend:function(){
 					                //(이미지 보여주기 처리)
 					                $('.wrap-loading').removeClass('display-none');
@@ -133,7 +144,9 @@
 								});
 
 							}else if(data.context.tmpl_id == "updateOwnerTmpl"){
+
 								console.log("소유자 변경 템플릿");
+
 								$('#'+data.context.tmpl_id).tmpl({ result : result }).appendTo(elem);
 
 								$("#sendSignByUpdateOwner").unbind('click').click(function(){
@@ -187,6 +200,7 @@
 					            ,complete:function(){
 					                //(이미지 감추기 처리)
 					                $('.wrap-loading').addClass('display-none');
+													$("#achat_talk_body").scrollTop(999999);
 					            },
 					            error : function(xhr, status, error){
 					                console.log("xhr : " + xhr);
@@ -198,6 +212,7 @@
 
 
 							}else if(data.context.tmpl_id == "checkTokenTmpl"){
+
 								console.log("잔액 확인 템플릿");
 
 								$('#'+data.context.tmpl_id).tmpl({ result : result }).appendTo(elem);
@@ -233,6 +248,7 @@
 					            ,complete:function(){
 					                //(이미지 감추기 처리)
 					                $('.wrap-loading').addClass('display-none');
+													$("#achat_talk_body").scrollTop(999999);
 					            },
 					            error : function(xhr, status, error){
 					                console.log("xhr : " + xhr);
@@ -275,6 +291,7 @@
 					            ,complete:function(){
 					                //(이미지 감추기 처리)
 					                $('.wrap-loading').addClass('display-none');
+													$("#achat_talk_body").scrollTop(999999);
 					            },
 					            error : function(xhr, status, error){
 					                console.log("xhr : " + xhr);
@@ -283,7 +300,13 @@
 					        });
 								});
 							}
+							this.callback_message();
+						},
+
+						callback_message : function(){
+							$("#achat_talk_body").scrollTop(999999);
 						}
+
 					}
 			}
 			render.init(type,data);
