@@ -191,6 +191,13 @@ button{outline:0; border:0;}
 .btn-del-reply{position:absolute; top:20px; right:0; font-size:0; vertical-align:middle; border:none; width:20px; height:20px; background:url("../img/btn_del_reply.png") no-repeat center center;}
 .btn-overview{width:29px; height:29px; background:url("../img/btn_overview.png") no-repeat center center; vertical-align:top;}
 
+/* component style */
+input, textarea, select, button{font-family:'NotoR'!important; color:#555;}
+.form-style{border:1px solid #e2e4e9; background-color:#fff; border-radius:3px; color:#555; padding:0.8rem 1.15rem; width:100%;}
+.form-style[readonly]{border:1px solid #e2e4e9; background-color:#f7f8fa;}
+.form-style:focus{outline:none;}
+.btn-right{margin-top:10px; text-align:right;}
+
 @media (max-width:1239px){
 
 	/* chatbot Layer popup */

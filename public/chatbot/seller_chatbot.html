@@ -32,12 +32,14 @@
 		<p class="aibril">
 			<span class="box">
 				<span>검증 하시려는 배터리 BID, CID를 입력시고 인증서 파일을 첨부 하세요</span>
-				<span>BID : <input type="text" value=""> </span>
-				<span>CID : <input type="text" value=""> </span>
-				<span> <input type="file" value=""> </span>
-				<span style="float: right;">
-			    <button class="btn-type01 btn-redpink" id="sendCert">전송</button>
-			  </span>
+				<span>
+					<span style="font-size: 12px; width: 100%;">BID : <input class="form-style"  type="text" value=""> </span>
+					<span style="font-size: 12px; width: 100%;">CID : <input class="form-style"  type="text" value=""> </span>
+					<span style="font-size: 12px; width: 100%;"> <input class="form-style"  type="file" value=""> </span>
+					<span style="float: right;">
+				    <button class="btn-type01 btn-redpink" id="sendCert">전송</button>
+				  </span>
+				</span>
 			</span>
 		</p>
 	</script>
@@ -45,12 +47,15 @@
 		<p class="aibril">
 			<span class="box">
 				<span>token을 받을 사람의 계정 정보, 이체할 BPT 수, 주인님의 개인키를 입력후 [서명 & token 이체] 버튼을 눌러주세요</span>
-				<span>받을분 계정 : <input type="text" value=""> </span>
-				<span>이체할 BPT 수 : <input type="text" value=""> </span>
-				<span>고객님 개인키 : <input type="text" value=""> </span>
-				<span style="float: right;">
-			    <button class="btn-type01 btn-redpink" id="sendSignBySendTOken">서명</button>
-			  </span>
+				<span>
+					<span style="font-size: 12px; width: 100%;">받을 분 계정 : <input class="form-style" id="sendTokenTmpl_receverId" type="text" value="0xE0804701Fb5F86bE3fDa9977B590d7899933a278"> </span>
+					<span style="font-size: 12px; width: 100%;">이체 할 BPT 수 : <input class="form-style" id="sendTokenTmpl_amount" type="text" value="1"> </span>
+					<span style="font-size: 12px; width: 100%;">고객님 주소 : <input class="form-style" id="sendTokenTmpl_from" type="text" value="0xd90DEC0025b43483c8087231768c35B1C70D5ED5"> </span>
+					<span style="font-size: 12px; width: 100%;">고객님 개인키 : <input class="form-style" id="sendTokenTmpl_privateKey" type="text" value="41328176a9f1b9cca94e482f3f79d1877e8376d1290bf1efdea8f94381a4674d"> </span>
+					<span style="float: right;">
+				    <button class="btn-type01 btn-redpink" id="sendSignBySendTOken">서명</button>
+				  </span>
+				</span>
 			</span>
 		</p>
 	</script>
@@ -65,12 +70,15 @@
 		<p class="aibril">
 			<span class="box">
 				<span>배터리 소유권을 받을 사람의 계정 정보, 소유권 이전할 배터리 ID, 주인님의 개인키를 입력후 [서명 & 소유권 이전] 버튼을 눌러주세요</span>
-				<span>소유권 받을 계정 : <input type="text" value=""> </span>
-				<span>소유권 이전 BID : <input type="text" value=""> </span>
-				<span>개인키 : <input type="text" value=""> </span>
-				<span style="float: right;">
-			    <button class="btn-type01 btn-redpink" id="sendSignByUpdateOwner">서명</button>
-			  </span>
+				<span>
+					<span style="font-size: 12px; width: 100%;">소유권 받을 계정 : <input id="updateOwnerTmpl_toId" class="form-style" type="text" value="0xd90DEC0025b43483c8087231768c35B1C70D5ED5"> </span>
+					<span style="font-size: 12px; width: 100%;">소유권 이전 할 BID : <input id="updateOwnerTmpl_BID" class="form-style" type="text" value="12"> </span>
+					<span style="font-size: 12px; width: 100%;">고객님 주소 : <input id="updateOwnerTmpl_fromId" class="form-style" type="text" value="0xE0804701Fb5F86bE3fDa9977B590d7899933a278"> </span>
+					<span style="font-size: 12px; width: 100%;">고객님 개인키 : <input id="updateOwnerTmpl_fromKey" class="form-style" type="text" value="8d60624a1f2c5eb805a5e6dc8aab9577e9edafa5d5ee867af88f1a7542f86919"> </span>
+					<span style="float: right;">
+				    <button class="btn-type01 btn-redpink" id="sendSignByUpdateOwner">서명</button>
+				  </span>
+				</span>
 			</span>
 		</p>
 	</script>
@@ -78,6 +86,32 @@
 		<p class="aibril">
 			<span class="box">
 				<span>배터리 {{html result.bid}}의 소유권을 {{html result.recever}}에게 정상적으로 이전하였습니다.</span>
+			</span>
+		</p>
+	</script>
+	<script id="checkTokenTmpl" type="text/j-query-tmpl">
+		<p class="aibril">
+			<span class="box">
+				<span>잔액 확인 할 계정정보를 입력 해 주세요.</span>
+				<span>
+					<span style="font-size: 12px; width: 100%;">잔액 확인 할 계정 : <input class="form-style"  type="text" id="checkTokenIdVal" value="0xE0804701Fb5F86bE3fDa9977B590d7899933a278"> </span>
+					<span style="float: right;">
+				    <button class="btn-type01 btn-redpink" id="checkTokenBtn">전송</button>
+				  </span>
+				</span>
+			</span>
+		</p>
+	</script>
+	<script id="checkOwnerTmpl" type="text/j-query-tmpl">
+		<p class="aibril">
+			<span class="box">
+				<span>소유권 확인 할 계정정보를 입력 해 주세요.</span>
+				<span>
+					<span style="font-size: 12px; width: 100%;">소유권 확인 할 계정 : <input class="form-style"  type="text" id="checkOwnerIdVal" value="0xd90DEC0025b43483c8087231768c35B1C70D5ED5"> </span>
+					<span style="float: right;">
+				    <button class="btn-type01 btn-redpink" id="checkOwnerBtn">전송</button>
+				  </span>
+				</span>
 			</span>
 		</p>
 	</script>

@@ -1,4 +1,7 @@
 (function($) {
+
+	const BizUrl = "http://localhost";
+	const BizPort = ":6003";
 	$.fn.extend({
 		achat_render : function(type, data){
 			var elem = this;
@@ -15,7 +18,7 @@
 						render_output : function(data){
 
 							var values = data.output.text;
-							if(data.context.tmpl_id == null || typeof(data.context.tmpl_id) == "undefined" || data.context.tmpl_id == null){
+							if(data.context.tmpl_id == null || typeof(data.context.tmpl_id) == "undefined"){
 								if(values[0] == ""){
 									result.push(data.anythingMsg);
 								}else{
@@ -34,13 +37,252 @@
 								console.log("토큰 전송 템플릿");
 								$('#'+data.context.tmpl_id).tmpl({ result : result }).appendTo(elem);
 
+								$("#sendSignBySendTOken").unbind('click').click(function(){
+
+									if($("#sendTokenTmpl_from").val() == "" || $("#sendTokenTmpl_from").val() == null){
+										return;
+									}
+
+									if($("#sendTokenTmpl_privateKey").val() == "" || $("#sendTokenTmpl_privateKey").val() == null){
+										return;
+									}
+
+									if($("#sendTokenTmpl_amount").val() == "" || $("#sendTokenTmpl_amount").val() == null){
+										return;
+									}
+
+									if($("#sendTokenTmpl_receverId").val() == "" || $("#sendTokenTmpl_receverId").val() == null){
+										return;
+									}
+									input_data = {};
+
+					        //구매자 주소
+					        input_data.from = $("#sendTokenTmpl_from").val();
+					        input_data.privateKey = $("#sendTokenTmpl_privateKey").val();
+
+					        // 판매자 주소
+					        input_data.recipient = $("#sendTokenTmpl_receverId").val();
+					        input_data.amount = $("#sendTokenTmpl_amount").val();
+
+					        $.ajax({
+					            url : BizUrl + BizPort + '/transferBPT',
+					            cache: false,
+					            type: 'POST',
+					            dataType: 'json',
+					            contentType: "application/json; charset=utf-8",
+					            data: JSON.stringify(input_data),
+					            success : function(data) {
+
+					                console.log("받아온 result : " + JSON.stringify(data));
+
+
+													if(data.success){
+
+
+														result = new Array();
+														result.push($("#sendTokenTmpl_from").val()+"에게 "+$("#sendTokenTmpl_amount").val()+"BP 보냈습니다.");
+														//$('#achat_output_text').tmpl({ result : result }).appendTo(elem);
+
+														input_data = {};
+										        input_data.from = $("#sendTokenTmpl_receverId").val();
+
+										        $.ajax({
+										            url : BizUrl + BizPort + '/getBalanceOfBPT/from/' + input_data.from,
+										            cache: false,
+										            type: 'GET',
+										            dataType: 'json',
+										            contentType: "application/json; charset=utf-8",
+										            data: input_data,
+										            success : function(data) {
+
+										                console.log("받아온 result : " + JSON.stringify(data));
+																		result.push("고객님의 잔액은 "+data.result+"BP 입니다.");
+																		$('#achat_output_text').tmpl({ result : result }).appendTo(elem);
+										                //$("#getBalanceOfBPT_result").val(JSON.stringify(result.result));
+
+										            },beforeSend:function(){
+										                //(이미지 보여주기 처리)
+										                $('.wrap-loading').removeClass('display-none');
+										            }
+										            ,complete:function(){
+										                //(이미지 감추기 처리)
+										                $('.wrap-loading').addClass('display-none');
+										            },
+										            error : function(xhr, status, error){
+										                console.log("xhr : " + xhr);
+										                console.log(error);
+										            }
+										        });
+													}
+
+
+					            },beforeSend:function(){
+					                //(이미지 보여주기 처리)
+					                $('.wrap-loading').removeClass('display-none');
+					            }
+					            ,complete:function(){
+					                //(이미지 감추기 처리)
+					                $('.wrap-loading').addClass('display-none');
+					            },
+					            error : function(xhr, status, error){
+					                console.log("xhr : " + xhr);
+					                console.log(error);
+					            }
+					        });
+
+								});
+
 							}else if(data.context.tmpl_id == "updateOwnerTmpl"){
 								console.log("소유자 변경 템플릿");
 								$('#'+data.context.tmpl_id).tmpl({ result : result }).appendTo(elem);
 
+								$("#sendSignByUpdateOwner").unbind('click').click(function(){
+
+									if($("#updateOwnerTmpl_toId").val() == "" || $("#updateOwnerTmpl_toId").val() == null){
+										return;
+									}
+									if($("#updateOwnerTmpl_BID").val() == "" || $("#updateOwnerTmpl_BID").val() == null){
+										return;
+									}
+									if($("#updateOwnerTmpl_fromId").val() == "" || $("#updateOwnerTmpl_fromId").val() == null){
+										return;
+									}
+									if($("#updateOwnerTmpl_fromKey").val() == "" || $("#updateOwnerTmpl_fromKey").val() == null){
+										return;
+									}
+
+									input_data = {};
+
+					        // 판매자 주소
+					        input_data.from = $("#updateOwnerTmpl_fromId").val();
+					        input_data.privateKey = $("#updateOwnerTmpl_fromKey").val();
+
+					        // 구매자 주소
+					        input_data.transferFrom = $("#updateOwnerTmpl_fromId").val();
+					        input_data.transferTo = $("#updateOwnerTmpl_toId").val();
+					        input_data.bID = $("#updateOwnerTmpl_BID").val();
+
+					        $.ajax({
+					            url : BizUrl + BizPort + '/TransferFromBNFT',
+					            cache: false,
+					            type: 'POST',
+					            dataType: 'json',
+					            contentType: "application/json; charset=utf-8",
+					            data: JSON.stringify(input_data),
+					            success : function(data) {
+
+					                console.log("받아온 result : " + JSON.stringify(data));
+													result = new Array();
+													if(data.success){
+														result.push("배터리 "+$("#updateOwnerTmpl_BID").val()+"의 소유권을 "+$("#updateOwnerTmpl_toId").val()+"에게 정상적으로 이전하였습니다.");
+													}else{
+														result.push("소유권 이전을 실패 하였습니다. 올바른 정보를 입력 해주세요. ");
+													}
+													$('#achat_output_text').tmpl({ result : result }).appendTo(elem);
+
+					            },beforeSend:function(){
+					                //(이미지 보여주기 처리)
+					                $('.wrap-loading').removeClass('display-none');
+					            }
+					            ,complete:function(){
+					                //(이미지 감추기 처리)
+					                $('.wrap-loading').addClass('display-none');
+					            },
+					            error : function(xhr, status, error){
+					                console.log("xhr : " + xhr);
+					                console.log(error);
+					            }
+					        });
+								});
+
+
+
+							}else if(data.context.tmpl_id == "checkTokenTmpl"){
+								console.log("잔액 확인 템플릿");
+
+								$('#'+data.context.tmpl_id).tmpl({ result : result }).appendTo(elem);
+
+								$("#checkTokenBtn").unbind('click').click(function(){
+
+									if($("#checkTokenIdVal").val() == "" || $("#checkTokenIdVal").val() == null){
+										return;
+									}
+
+									input_data = {};
+					        input_data.from = $("#checkTokenIdVal").val();
+
+					        $.ajax({
+					            url : BizUrl + BizPort + '/getBalanceOfBPT/from/' + input_data.from,
+					            cache: false,
+					            type: 'GET',
+					            dataType: 'json',
+					            contentType: "application/json; charset=utf-8",
+					            data: input_data,
+					            success : function(data) {
+
+					                console.log("받아온 result : " + JSON.stringify(data));
+													result = new Array();
+													result.push("고객님의 잔액은 "+data.result+"BP 입니다.");
+													$('#achat_output_text').tmpl({ result : result }).appendTo(elem);
+					                //$("#getBalanceOfBPT_result").val(JSON.stringify(result.result));
+
+					            },beforeSend:function(){
+					                //(이미지 보여주기 처리)
+					                $('.wrap-loading').removeClass('display-none');
+					            }
+					            ,complete:function(){
+					                //(이미지 감추기 처리)
+					                $('.wrap-loading').addClass('display-none');
+					            },
+					            error : function(xhr, status, error){
+					                console.log("xhr : " + xhr);
+					                console.log(error);
+					            }
+					        });
+								});
+
+							}else if(data.context.tmpl_id == "checkOwnerTmpl"){
+								console.log("소유권 확인 템플릿");
+
+								$('#'+data.context.tmpl_id).tmpl({ result : result }).appendTo(elem);
+
+								$("#checkOwnerBtn").unbind('click').click(function(){
+
+									if($("#checkOwnerIdVal").val() == "" || $("#checkOwnerIdVal").val() == null){
+										return;
+									}
+									input_data = {};
+					        input_data.from = $("#checkOwnerIdVal").val();
+
+					        $.ajax({
+					            url : BizUrl + BizPort + '/getBalanceOfBNFT/from/' + input_data.from,
+					            cache: false,
+					            type: 'GET',
+					            dataType: 'json',
+					            contentType: "application/json; charset=utf-8",
+					            data: input_data,
+					            success : function(data) {
+
+					                console.log("받아온 result : " + JSON.stringify(data));
+													result = new Array();
+													result.push("검색하신 배터리(BID:"+data.result+")의 소유자 계정은 "+$("#checkOwnerIdVal").val()+"입니다.");
+													$('#achat_output_text').tmpl({ result : result }).appendTo(elem);
+
+					            },beforeSend:function(){
+					                //(이미지 보여주기 처리)
+					                $('.wrap-loading').removeClass('display-none');
+					            }
+					            ,complete:function(){
+					                //(이미지 감추기 처리)
+					                $('.wrap-loading').addClass('display-none');
+					            },
+					            error : function(xhr, status, error){
+					                console.log("xhr : " + xhr);
+					                console.log(error);
+					            }
+					        });
+								});
 							}
-
-
 						}
 					}
 			}
