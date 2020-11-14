@@ -56,7 +56,7 @@ module.exports = function(app, api){
 		var OPTIONS = {
 			headers:{"Content-Type":"application/json",Accept:"application/json"},
 			url: bcmUrl + bcmPort + '/api/v1/certificate/preparation/newCertiTxObject',
-			gs:{
+			qs:{
 				'from' : req.body.createCertificate_addressFrom,
 				'bID'  : req.body.createCertificate_bID,
 				'cID'  : req.body.createCertificate_cID,
@@ -67,7 +67,7 @@ module.exports = function(app, api){
 			}
 		};
 
-		request.get(OPTIONS, function (err, response, result) {
+		request.post(OPTIONS, function (err, response, result) {
 
 			let infoObject = result;
 			console.log("infoObject: " + infoObject);
@@ -113,6 +113,7 @@ module.exports = function(app, api){
 	app.get('/newBNFTTxObject', api.block.newBNFTTxObject);
 	app.get('/getBalanceOfBPT/from/:from', api.block.getBalanceOfBPT);
 	app.post('/transferBPT', api.block.transferBPT);
+	app.get('/getBalanceOfBNFT/from/:from', api.block.getBalanceOfBNFT);
 
 
 

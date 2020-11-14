@@ -241,3 +241,24 @@ exports.transferBPT = function(req, res){
 
 	});
 };
+
+exports.getBalanceOfBNFT = function(req, res) {
+
+	console.log("from : " + req.params.from);
+
+	data = {
+		from : req.params.from
+	}
+	const getInfoUrl = bcmUrl + bcmPort + '/api/v1/certificate/balanceOfBNFT';
+
+	var OPTIONS = {
+		headers: {'Content-Type': 'application/json', 'Authorization': authToken},
+		url: getInfoUrl,
+		qs: data
+	};
+
+	request.get(OPTIONS, function (err, response, result) {
+		console.log("result: " + result);
+		res.json(JSON.parse(result));
+	});
+};

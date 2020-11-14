@@ -1,7 +1,7 @@
 
 const BizUrl = "http://localhost";
-//const BizPort = ":6001";
-const Bizport = ":"+location.port
+const BizPort = ":6001";
+//const Bizport = ":"+location.port
 
 $(document).ready(function() {
 
@@ -256,5 +256,42 @@ $(document).ready(function() {
             }
         });
 
+    });
+
+    $("#getBalanceOfBNFT").on('click', function(event) {
+
+        input_data = {};
+
+        //구매자
+        input_data.from = "0xd90DEC0025b43483c8087231768c35B1C70D5ED5";
+
+        //판매자
+        //input_data.from = "0xE0804701Fb5F86bE3fDa9977B590d7899933a278";
+
+        $.ajax({
+            url : BizUrl + BizPort + '/getBalanceOfBNFT/from/' + input_data.from,
+            cache: false,
+            type: 'GET',
+            dataType: 'json',
+            contentType: "application/json; charset=utf-8",
+            data: input_data,
+            success : function(result) {
+
+                console.log("받아온 result : " + JSON.stringify(result));
+                $("#getBalanceOfBPT_result").val(JSON.stringify(result.result));
+
+            },beforeSend:function(){
+                //(이미지 보여주기 처리)
+                $('.wrap-loading').removeClass('display-none');
+            }
+            ,complete:function(){
+                //(이미지 감추기 처리)
+                $('.wrap-loading').addClass('display-none');
+            },
+            error : function(xhr, status, error){
+                console.log("xhr : " + xhr);
+                console.log(error);
+            }
+        });
     });
 });
