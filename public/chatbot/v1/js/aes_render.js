@@ -89,7 +89,9 @@
 
 													result = new Array();
 													if(data.success){
-															result.push($("#sendTokenTmpl_from").val()+"에게 "+$("#sendTokenTmpl_amount").val()+"BP 보냈습니다.");
+															var result_text = $("#sendTokenTmpl_from").val()+"에게 "+$("#sendTokenTmpl_amount").val()+"BP 보냈습니다.";
+															result_text = result_text + "<a href='https://bexplorer.chainz.network/tx/"+data.result.replaceAll('"', '')+"' target='_blank'><button class='btn-type01 btn-redpink'>블록체인에서 확인</button></a>";
+															result.push(result_text);
 															//$('#achat_output_text').tmpl({ result : result }).appendTo(elem);
 
 															input_data = {};
@@ -187,7 +189,10 @@
 					                console.log("받아온 result : " + JSON.stringify(data));
 													result = new Array();
 													if(data.success){
-														result.push("배터리 "+$("#updateOwnerTmpl_BID").val()+"의 소유권을 "+$("#updateOwnerTmpl_toId").val()+"에게 정상적으로 이전하였습니다.");
+
+														var result_text = "배터리 "+$("#updateOwnerTmpl_BID").val()+"의 소유권을 "+$("#updateOwnerTmpl_toId").val()+"에게 정상적으로 이전하였습니다.";
+														result_text = result_text + "<a href='https://bexplorer.chainz.network/tx/"+data.result.replaceAll('"', '')+"' target='_blank'><button class='btn-type01 btn-redpink'>블록체인에서 확인</button></a>";
+														result.push(result_text);
 													}else{
 														result.push("소유권 이전을 실패 하였습니다. 올바른 정보를 입력 해주세요. ");
 													}
@@ -267,11 +272,17 @@
 									if($("#checkOwnerIdVal").val() == "" || $("#checkOwnerIdVal").val() == null){
 										return;
 									}
+
 									input_data = {};
-					        input_data.from = $("#checkOwnerIdVal").val();
+
+					        //구매자
+					        input_data.bID = $("#checkOwnerIdVal").val();
+
+					        //판매자
+					        //input_data.bID = BNFT;
 
 					        $.ajax({
-					            url : BizUrl + BizPort + '/getBalanceOfBNFT/from/' + input_data.from,
+					            url : BizUrl + BizPort + '/getOwnerOfBNFT/bID/' + input_data.bID,
 					            cache: false,
 					            type: 'GET',
 					            dataType: 'json',
@@ -279,9 +290,9 @@
 					            data: input_data,
 					            success : function(data) {
 
-					                console.log("받아온 result : " + JSON.stringify(data));
+					                console.log("받아온 result : " + JSON.stringify(result));
 													result = new Array();
-													result.push("검색하신 배터리(BID:"+data.result+")의 소유자 계정은 "+$("#checkOwnerIdVal").val()+"입니다.");
+													result.push("검색하신 배터리(BID:"+$("#checkOwnerIdVal").val()+")의 소유자 계정은 "+data.result+"입니다.");
 													$('#achat_output_text').tmpl({ result : result }).appendTo(elem);
 
 					            },beforeSend:function(){
@@ -291,13 +302,14 @@
 					            ,complete:function(){
 					                //(이미지 감추기 처리)
 					                $('.wrap-loading').addClass('display-none');
-													$("#achat_talk_body").scrollTop(999999);
 					            },
 					            error : function(xhr, status, error){
 					                console.log("xhr : " + xhr);
 					                console.log(error);
 					            }
 					        });
+
+
 								});
 							}
 							this.callback_message();
