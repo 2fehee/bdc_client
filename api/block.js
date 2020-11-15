@@ -108,6 +108,130 @@ exports.checkLatestCertificate = function(req, res) {
 	});
 };
 
+exports.initBNFT = function(req, res){
+
+	console.log("from : " + req.body.from);
+
+	const from = req.body.from;
+	const privateKey = req.body.privateKey;
+
+	const name = req.body.name;
+	const symbol = req.body.symbol;
+
+	var data = {
+		from : from,
+		name : name,
+		symbol : symbol,
+	}
+
+	const preparationUrl = bcmUrl + bcmPort + '/api/v1/certificate/preparation/initBNFTTxObject';
+	const sendSignedUrl = bcmUrl + bcmPort + '/api/v1/certificate/SignedTx';
+
+	var OPTIONS = {
+		headers:{"Content-Type":"application/json",Accept:"application/json"},
+		url: preparationUrl,
+		qs: data
+	};
+
+	request.get(OPTIONS, function (err, response, result) {
+
+		var infoObject = result;
+		console.log("infoObject: " + infoObject);
+
+		const web3 = new Web3();
+		web3.transactionConfirmationBlocks = 1;
+
+		const privKey = Buffer.from(privateKey, 'hex');
+		console.log("privKey :" + privKey);
+		var tx = new ethTx(JSON.parse(infoObject).result);
+		tx.sign(privKey);                                         //privateKey로 sign
+
+		var serializedTx = tx.serialize(undefined);                        //sign 결과 값을 직렬화 함
+		var signedData = '0x' + serializedTx.toString('hex');       //hex 값으로 변경
+		console.log("signedData : " + signedData);
+
+		var OPTIONS = {
+			headers: {'Content-Type': 'application/json', 'Authorization': authToken},
+			url: sendSignedUrl,
+			body: JSON.stringify({
+				"signedData": signedData
+			})
+		};
+
+		request.post(OPTIONS, function (err, response, result) {
+			let txResult = result;
+			console.log("txResult: " + txResult);
+			res.json(JSON.parse(txResult));
+		});
+
+	});
+};
+
+exports.initBPT = function(req, res){
+
+	console.log("from : " + req.body.from);
+
+	const from = req.body.from;
+	const privateKey = req.body.privateKey;
+
+	const name = req.body.name;
+	const symbol = req.body.symbol;
+	const decimals = req.body.decimals;
+	const initialSupply = req.body.initialSupply;
+	const initialHolder = req.body.initialHolder;
+
+	var data = {
+		from : from,
+		name : name,
+		symbol : symbol,
+		decimals : decimals,
+		initialSupply : initialSupply,
+		initialHolder : initialHolder,
+	}
+
+	const preparationUrl = bcmUrl + bcmPort + '/api/v1/certificate/preparation/initBPTTxObject';
+	const sendSignedUrl = bcmUrl + bcmPort + '/api/v1/certificate/SignedTx';
+
+	var OPTIONS = {
+		headers:{"Content-Type":"application/json",Accept:"application/json"},
+		url: preparationUrl,
+		qs: data
+	};
+
+	request.get(OPTIONS, function (err, response, result) {
+
+		var infoObject = result;
+		console.log("infoObject: " + infoObject);
+
+		const web3 = new Web3();
+		web3.transactionConfirmationBlocks = 1;
+
+		const privKey = Buffer.from(privateKey, 'hex');
+		console.log("privKey :" + privKey);
+		var tx = new ethTx(JSON.parse(infoObject).result);
+		tx.sign(privKey);                                         //privateKey로 sign
+
+		var serializedTx = tx.serialize(undefined);                        //sign 결과 값을 직렬화 함
+		var signedData = '0x' + serializedTx.toString('hex');       //hex 값으로 변경
+		console.log("signedData : " + signedData);
+
+		var OPTIONS = {
+			headers: {'Content-Type': 'application/json', 'Authorization': authToken},
+			url: sendSignedUrl,
+			body: JSON.stringify({
+				"signedData": signedData
+			})
+		};
+
+		request.post(OPTIONS, function (err, response, result) {
+			let txResult = result;
+			console.log("txResult: " + txResult);
+			res.json(JSON.parse(txResult));
+		});
+
+	});
+};
+
 exports.newBNFT = function(req, res){
 
 	console.log("from : " + req.body.from);

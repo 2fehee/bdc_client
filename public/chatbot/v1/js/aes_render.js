@@ -1,7 +1,7 @@
 (function($) {
 
 	const BizUrl = "http://localhost";
-	const BizPort = ":6003";
+	const BizPort = ":6001";
 	$.fn.extend({
 		achat_render : function(type, data){
 			var elem = this;
@@ -90,7 +90,7 @@
 													result = new Array();
 													if(data.success){
 															var result_text = $("#sendTokenTmpl_from").val()+"에게 "+$("#sendTokenTmpl_amount").val()+"BP 보냈습니다.";
-															result_text = result_text + "<a href='https://bexplorer.chainz.network/tx/"+data.result.replaceAll('"', '')+"' target='_blank'><button class='btn-type01 btn-redpink'>블록체인에서 확인</button></a>";
+															result_text = result_text + "<a href='https://besuscan.chainz.network/tx/"+data.result.replaceAll('"', '')+"' target='_blank'><button class='btn-type01 btn-redpink'>블록체인에서 확인</button></a>";
 															result.push(result_text);
 															//$('#achat_output_text').tmpl({ result : result }).appendTo(elem);
 
@@ -191,7 +191,7 @@
 													if(data.success){
 
 														var result_text = "배터리 "+$("#updateOwnerTmpl_BID").val()+"의 소유권을 "+$("#updateOwnerTmpl_toId").val()+"에게 정상적으로 이전하였습니다.";
-														result_text = result_text + "<a href='https://bexplorer.chainz.network/tx/"+data.result.replaceAll('"', '')+"' target='_blank'><button class='btn-type01 btn-redpink'>블록체인에서 확인</button></a>";
+														result_text = result_text + "<a href='https://besuscan.chainz.network/tx/"+data.result.replaceAll('"', '')+"' target='_blank'><button class='btn-type01 btn-redpink'>블록체인에서 확인</button></a>";
 														result.push(result_text);
 													}else{
 														result.push("소유권 이전을 실패 하였습니다. 올바른 정보를 입력 해주세요. ");

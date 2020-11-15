@@ -2,7 +2,7 @@
 const BizUrl = "http://localhost";
 const BizPort = ":6001";
 //const Bizport = ":"+location.port
-const BNFT = 4;
+const BNFT = 2;
 
 $(document).ready(function() {
 
@@ -151,6 +151,83 @@ $(document).ready(function() {
 
     });
 
+    $("#initBNFT").on('click', function(event) {
+
+        input_data = {};
+
+        input_data.from = "0xFE3B557E8Fb62b89F4916B721be55cEb828dBd73";
+        input_data.privateKey = "8f2a55949038a9610f50fb23b5883af3b4ecb3c3bb792cbcefbd1542c692be63";
+
+        input_data.name = "ERC721Token";
+        input_data.symbol = "BNFT";
+
+        $.ajax({
+            url : BizUrl + BizPort + '/initBNFT',
+            cache: false,
+            type: 'POST',
+            dataType: 'json',
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(input_data),
+            success : function(result) {
+
+                console.log("받아온 result : " + JSON.stringify(result));
+                $("#initBNFT_result").val(JSON.stringify(result.result));
+
+            },beforeSend:function(){
+                //(이미지 보여주기 처리)
+                $('.wrap-loading').removeClass('display-none');
+            }
+            ,complete:function(){
+                //(이미지 감추기 처리)
+                $('.wrap-loading').addClass('display-none');
+            },
+            error : function(xhr, status, error){
+                console.log("xhr : " + xhr);
+                console.log(error);
+            }
+        });
+    });
+
+    $("#initBPT").on('click', function(event) {
+
+        input_data = {};
+
+        input_data.from = "0xFE3B557E8Fb62b89F4916B721be55cEb828dBd73";
+        input_data.privateKey = "8f2a55949038a9610f50fb23b5883af3b4ecb3c3bb792cbcefbd1542c692be63";
+
+        input_data.name = "ERC20Token";
+        input_data.symbol = "BPT";
+        input_data.decimals = 1;
+        input_data.initialSupply = 100000000;
+        input_data.initialHolder = "0xFE3B557E8Fb62b89F4916B721be55cEb828dBd73";
+
+        $.ajax({
+            url : BizUrl + BizPort + '/initBPT',
+            cache: false,
+            type: 'POST',
+            dataType: 'json',
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(input_data),
+            success : function(result) {
+
+                console.log("받아온 result : " + JSON.stringify(result));
+                $("#initBPT_result").val(JSON.stringify(result.result));
+
+            },beforeSend:function(){
+                //(이미지 보여주기 처리)
+                $('.wrap-loading').removeClass('display-none');
+            }
+            ,complete:function(){
+                //(이미지 감추기 처리)
+                $('.wrap-loading').addClass('display-none');
+            },
+            error : function(xhr, status, error){
+                console.log("xhr : " + xhr);
+                console.log(error);
+            }
+        });
+    });
+
     $("#newBNFT").on('click', function(event) {
 
         input_data = {};
@@ -200,7 +277,7 @@ $(document).ready(function() {
         input_data = {};
 
         //구매자
-        input_data.from = "0xd90DEC0025b43483c8087231768c35B1C70D5ED5";
+        input_data.from = "0x870A330a7D25bCF080b88d444ddc3C1c0980D442";
 
         //판매자
         //input_data.from = "0xE0804701Fb5F86bE3fDa9977B590d7899933a278";
@@ -237,8 +314,8 @@ $(document).ready(function() {
         input_data = {};
 
         //구매자 주소
-        input_data.from = "0xd90DEC0025b43483c8087231768c35B1C70D5ED5";
-        input_data.privateKey = "41328176a9f1b9cca94e482f3f79d1877e8376d1290bf1efdea8f94381a4674d";
+        input_data.from = "0x870A330a7D25bCF080b88d444ddc3C1c0980D442";
+        input_data.privateKey = "1d711e8cb6ff4afdff3c1cade8daa0c8fd3589c678f4b2753e04ad261534b05d";
 
         // 판매자 주소
         input_data.recipient = "0xE0804701Fb5F86bE3fDa9977B590d7899933a278";
@@ -322,7 +399,7 @@ $(document).ready(function() {
         // 소유권을 넘기는 주소
         input_data.transferFrom = "0xE0804701Fb5F86bE3fDa9977B590d7899933a278";
         // 소유권을 받는 주소
-        input_data.transferTo = "0xd90DEC0025b43483c8087231768c35B1C70D5ED5";
+        input_data.transferTo = "0x870A330a7D25bCF080b88d444ddc3C1c0980D442";
         // 소유권이 이전 될 bID
         input_data.bID = BNFT;
 
@@ -333,6 +410,7 @@ $(document).ready(function() {
             dataType: 'json',
             contentType: "application/json; charset=utf-8",
             data: JSON.stringify(input_data),
+            timeout: 600000,
             success : function(result) {
 
                 console.log("받아온 result : " + JSON.stringify(result));
