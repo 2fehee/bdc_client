@@ -292,7 +292,12 @@
 
 					                console.log("받아온 result : " + JSON.stringify(result));
 													result = new Array();
-													result.push("검색하신 배터리(BID:"+$("#checkOwnerIdVal").val()+")의 소유자 계정은 "+data.result+"입니다.");
+													if(data.success){
+														result.push("검색하신 배터리(BID:"+$("#checkOwnerIdVal").val()+")의 소유자 계정은 "+data.result+"입니다.");
+													}else{
+														result.push("검색하신 배터리(BID:"+$("#checkOwnerIdVal").val()+")의 소유자 계정을 찾을 수 없습니다.");
+													}
+
 													$('#achat_output_text').tmpl({ result : result }).appendTo(elem);
 
 					            },beforeSend:function(){
