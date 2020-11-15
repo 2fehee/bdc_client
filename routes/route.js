@@ -23,98 +23,98 @@ function base64_encode(file) {
 }
 
 module.exports = function(app, api){
-	let storage = multer.diskStorage({
-		destination: function (req, file, cb) {
-			cb(null, 'uploads');
-		},
-		filename: function (req, file, cb) {
-			cb(null, setFile(file));
-		}
-	});
-
-	function setFile(file) {
-		let oriFile = file.originalname;
-		let ext = path.extname(oriFile);
-		let name = path.basename(oriFile, ext);
-		let rnd = Math.floor(Math.random() * 90) + 10; // 10 ~ 99
-		return Date.now() + '-' + rnd + '-' + name + ext;
-	}
-
-	let upload = multer({
-		storage: storage
-	});
-
-	// upload.none(): only for text-only multipart form
-	// upload.single('field-name'): only one file
-	app.post(['/upload2'], upload.any(), (req, res) => {
-		console.log(req.body);
-		console.log(req.files);
-		console.log(req.files[0].path);
-		var base64str = base64_encode(req.files[0].path);
-		console.log(base64str);
-
-		var OPTIONS = {
-			headers:{"Content-Type":"application/json",Accept:"application/json"},
-			url: bcmUrl + bcmPort + '/api/v1/certificate/preparation/newCertiTxObject',
-			qs:{
-				'from' : req.body.createCertificate_addressFrom,
-				'bID'  : req.body.createCertificate_bID,
-				'cID'  : req.body.createCertificate_cID,
-				'grade': req.body.createCertificate_grade,
-				'evaluationDate' : req.body.createCertificate_evaluationDate,
-				'evaluationAgency': req.body.createCertificate_evaluationAgency,
-				'cFile': base64str
-			}
-		};
-
-		request.post(OPTIONS, function (err, response, result) {
-
-			let infoObject = result;
-			console.log("infoObject: " + infoObject);
-
-			const web3 = new Web3();
-			web3.transactionConfirmationBlocks = 1;
-
-			const privateKey = req.body.createCertificate_privateKey;
-			const privKey = Buffer.from(privateKey, 'hex');
-			console.log("privKey :" + privKey);
-			let tx = new ethTx(JSON.parse(infoObject).result);
-			tx.sign(privKey);                                         //privateKey로 sign
-
-			let serializedTx = tx.serialize(undefined);                        //sign 결과 값을 직렬화 함
-			let signedData = '0x' + serializedTx.toString('hex');       //hex 값으로 변경
-			console.log("signedData : " + signedData);
-
-			/*
-			var OPTIONS = {
-				headers: {'Content-Type': 'application/json', 'Authorization': authToken},
-				url: sendSignedUrl,
-				body: JSON.stringify({
-					"signedData": signedData
-				})
-			};
-
-			request.post(OPTIONS, function (err, response, result) {
-				let txResult = result;
-				console.log("txResult: " + txResult);
-				res.json(JSON.parse(txResult));
-			});
-			*/
-		});
-
-		res.send("hello world");
-	});
+	// let storage = multer.diskStorage({
+	// 	destination: function (req, file, cb) {
+	// 		cb(null, 'uploads');
+	// 	},
+	// 	filename: function (req, file, cb) {
+	// 		cb(null, setFile(file));
+	// 	}
+	// });
+	//
+	// function setFile(file) {
+	// 	let oriFile = file.originalname;
+	// 	let ext = path.extname(oriFile);
+	// 	let name = path.basename(oriFile, ext);
+	// 	let rnd = Math.floor(Math.random() * 90) + 10; // 10 ~ 99
+	// 	return Date.now() + '-' + rnd + '-' + name + ext;
+	// }
+	//
+	// let upload = multer({
+	// 	storage: storage
+	// });
+	//
+	// // upload.none(): only for text-only multipart form
+	// // upload.single('field-name'): only one file
+	// app.post(['/upload2'], upload.any(), (req, res) => {
+	// 	console.log(req.body);
+	// 	console.log(req.files);
+	// 	console.log(req.files[0].path);
+	// 	var base64str = base64_encode(req.files[0].path);
+	// 	console.log(base64str);
+	//
+	// 	var OPTIONS = {
+	// 		headers:{"Content-Type":"application/json",Accept:"application/json"},
+	// 		url: bcmUrl + bcmPort + '/api/v1/certificate/preparation/newCertiTxObject',
+	// 		qs:{
+	// 			'from' : req.body.createCertificate_addressFrom,
+	// 			'bID'  : req.body.createCertificate_bID,
+	// 			'cID'  : req.body.createCertificate_cID,
+	// 			'grade': req.body.createCertificate_grade,
+	// 			'evaluationDate' : req.body.createCertificate_evaluationDate,
+	// 			'evaluationAgency': req.body.createCertificate_evaluationAgency,
+	// 			'cFile': base64str
+	// 		}
+	// 	};
+	//
+	// 	request.post(OPTIONS, function (err, response, result) {
+	//
+	// 		let infoObject = result;
+	// 		console.log("infoObject: " + infoObject);
+	//
+	// 		const web3 = new Web3();
+	// 		web3.transactionConfirmationBlocks = 1;
+	//
+	// 		const privateKey = req.body.createCertificate_privateKey;
+	// 		const privKey = Buffer.from(privateKey, 'hex');
+	// 		console.log("privKey :" + privKey);
+	// 		let tx = new ethTx(JSON.parse(infoObject).result);
+	// 		tx.sign(privKey);                                         //privateKey로 sign
+	//
+	// 		let serializedTx = tx.serialize(undefined);                        //sign 결과 값을 직렬화 함
+	// 		let signedData = '0x' + serializedTx.toString('hex');       //hex 값으로 변경
+	// 		console.log("signedData : " + signedData);
+	//
+	// 		/*
+	// 		var OPTIONS = {
+	// 			headers: {'Content-Type': 'application/json', 'Authorization': authToken},
+	// 			url: sendSignedUrl,
+	// 			body: JSON.stringify({
+	// 				"signedData": signedData
+	// 			})
+	// 		};
+	//
+	// 		request.post(OPTIONS, function (err, response, result) {
+	// 			let txResult = result;
+	// 			console.log("txResult: " + txResult);
+	// 			res.json(JSON.parse(txResult));
+	// 		});
+	// 		*/
+	// 	});
+	//
+	// 	res.send("hello world");
+	// });
 
 	//-----------------------------------------------------------------
 	//블록체인 서비스 연결
 	//app.post('/signCreateCertificate', api.block.signCreateCertificate);
 	app.get('/certificateInfo/bID/:bID/cID/:cID', api.block.certificateInfo);
 	app.get('/checkLatestCertificate/bID/:bID/cID/:cID/certificateHash/:certificateHash', api.block.checkLatestCertificate);
-	app.get('/newBNFTTxObject', api.block.newBNFTTxObject);
+	app.post('/newBNFT', api.block.newBNFT);
 	app.get('/getBalanceOfBPT/from/:from', api.block.getBalanceOfBPT);
 	app.post('/transferBPT', api.block.transferBPT);
-	app.get('/getBalanceOfBNFT/from/:from', api.block.getBalanceOfBNFT);
-	app.post('/TransferFromBNFT', api.block.TransferFromBNFT);
+	app.get('/getOwnerOfBNFT/bID/:bID', api.block.getOwnerOfBNFT);
+	app.post('/transferFromBNFT', api.block.transferFromBNFT);
 
 
 

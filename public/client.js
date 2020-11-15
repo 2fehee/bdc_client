@@ -2,6 +2,7 @@
 const BizUrl = "http://localhost";
 const BizPort = ":6001";
 //const Bizport = ":"+location.port
+const BNFT = 4;
 
 $(document).ready(function() {
 
@@ -150,21 +151,34 @@ $(document).ready(function() {
 
     });
 
-    $("#TestAPI").on('click', function(event) {
+    $("#newBNFT").on('click', function(event) {
 
         input_data = {};
 
+        //battery 소유자 생성 (판매자)
+        input_data.from = "0xE0804701Fb5F86bE3fDa9977B590d7899933a278";
+        input_data.privateKey = "8d60624a1f2c5eb805a5e6dc8aab9577e9edafa5d5ee867af88f1a7542f86919";
+
+        // 소유할 battery에 할당 될 bID
+        input_data.bID = BNFT;
+        // 제조회사명
+        input_data.manufacturerName = "SKI";
+        // 모델명
+        input_data.modelName = "No1";
+        // 날짜
+        input_data.manufacturerDate = "2010-11-14";
+
         $.ajax({
-            url : BizUrl + BizPort + '/newBNFTTxObject',
+            url : BizUrl + BizPort + '/newBNFT',
             cache: false,
-            type: 'GET',
+            type: 'POST',
             dataType: 'json',
             contentType: "application/json; charset=utf-8",
             data: JSON.stringify(input_data),
             success : function(result) {
 
                 console.log("받아온 result : " + JSON.stringify(result));
-                $("#createCertificate_result").val(JSON.stringify(result.result));
+                $("#newBNFT_result").val(JSON.stringify(result.result));
 
             },beforeSend:function(){
                 //(이미지 보여주기 처리)
@@ -228,7 +242,8 @@ $(document).ready(function() {
 
         // 판매자 주소
         input_data.recipient = "0xE0804701Fb5F86bE3fDa9977B590d7899933a278";
-        input_data.amount = 20;
+        // 보낼 token양
+        input_data.amount = 10;
 
         $.ajax({
             url : BizUrl + BizPort + '/transferBPT',
@@ -240,7 +255,7 @@ $(document).ready(function() {
             success : function(result) {
 
                 console.log("받아온 result : " + JSON.stringify(result));
-                $("#createCertificate_result").val(JSON.stringify(result.result));
+                $("#transferBPT_result").val(JSON.stringify(result.result));
 
             },beforeSend:function(){
                 //(이미지 보여주기 처리)
@@ -258,18 +273,18 @@ $(document).ready(function() {
 
     });
 
-    $("#getBalanceOfBNFT").on('click', function(event) {
+    $("#getOwnerOfBNFT").on('click', function(event) {
 
         input_data = {};
 
         //구매자
-        input_data.from = "0xd90DEC0025b43483c8087231768c35B1C70D5ED5";
+        input_data.bID = BNFT;
 
         //판매자
-        //input_data.from = "0xE0804701Fb5F86bE3fDa9977B590d7899933a278";
+        //input_data.bID = BNFT;
 
         $.ajax({
-            url : BizUrl + BizPort + '/getBalanceOfBNFT/from/' + input_data.from,
+            url : BizUrl + BizPort + '/getOwnerOfBNFT/bID/' + input_data.bID,
             cache: false,
             type: 'GET',
             dataType: 'json',
@@ -278,7 +293,7 @@ $(document).ready(function() {
             success : function(result) {
 
                 console.log("받아온 result : " + JSON.stringify(result));
-                $("#getBalanceOfBPT_result").val(JSON.stringify(result.result));
+                $("#getOwnerOfBNFT_result").val(JSON.stringify(result.result));
 
             },beforeSend:function(){
                 //(이미지 보여주기 처리)
@@ -295,18 +310,21 @@ $(document).ready(function() {
         });
     });
 
-    $("#TransferFromBNFT").on('click', function(event) {
+    $("#transferFromBNFT").on('click', function(event) {
 
         input_data = {};
 
         // 판매자 주소
         input_data.from = "0xE0804701Fb5F86bE3fDa9977B590d7899933a278";
+        // 판매자 개인키
         input_data.privateKey = "8d60624a1f2c5eb805a5e6dc8aab9577e9edafa5d5ee867af88f1a7542f86919";
 
-        // 구매자 주소
+        // 소유권을 넘기는 주소
         input_data.transferFrom = "0xE0804701Fb5F86bE3fDa9977B590d7899933a278";
+        // 소유권을 받는 주소
         input_data.transferTo = "0xd90DEC0025b43483c8087231768c35B1C70D5ED5";
-        input_data.bID = 12;
+        // 소유권이 이전 될 bID
+        input_data.bID = BNFT;
 
         $.ajax({
             url : BizUrl + BizPort + '/TransferFromBNFT',
@@ -318,7 +336,7 @@ $(document).ready(function() {
             success : function(result) {
 
                 console.log("받아온 result : " + JSON.stringify(result));
-                $("#createCertificate_result").val(JSON.stringify(result.result));
+                $("#transferFromBNFT_result").val(JSON.stringify(result.result));
 
             },beforeSend:function(){
                 //(이미지 보여주기 처리)

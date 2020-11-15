@@ -69,10 +69,10 @@ exports.signCreateCertificate = function(req, res){
 
 exports.certificateInfo = function(req, res) {
 
+	console.log("bID : " + req.params.bID);
+
     const bID = req.params.bID;
     const cID = req.params.cID;
-
-    console.log("bID : " + req.params.bID);
 
     const getInfoUrl = bcmUrl + bcmPort + '/api/v1/certificate/certificateInfo?bID=' + bID + '&cID=' + cID;
 
@@ -89,36 +89,43 @@ exports.certificateInfo = function(req, res) {
 
 exports.checkLatestCertificate = function(req, res) {
 
-		const bID = req.params.bID;
-		const cID = req.params.cID;
-		const certificateHash = req.params.certificateHash;
+	console.log("bID : " + req.params.bID);
 
-		console.log("bID : " + req.params.bID);
+	const bID = req.params.bID;
+	const cID = req.params.cID;
+	const certificateHash = req.params.certificateHash;
 
-		const getInfoUrl = bcmUrl + bcmPort + '/api/v1/certificate/checkLatestCertificate?bID=' + bID + '&cID=' + cID + '&certificateHash=' + certificateHash;
+	const getInfoUrl = bcmUrl + bcmPort + '/api/v1/certificate/checkLatestCertificate?bID=' + bID + '&cID=' + cID + '&certificateHash=' + certificateHash;
 
-		var OPTIONS = {
-				headers: {'Content-Type': 'application/json', 'Authorization': authToken},
-				url: getInfoUrl
-		};
+	var OPTIONS = {
+			headers: {'Content-Type': 'application/json', 'Authorization': authToken},
+			url: getInfoUrl
+	};
 
-		request.get(OPTIONS, function (err, response, result) {
-				console.log("result: " + result);
-				res.json(JSON.parse(result));
-		});
+	request.get(OPTIONS, function (err, response, result) {
+			console.log("result: " + result);
+			res.json(JSON.parse(result));
+	});
 };
 
-exports.newBNFTTxObject = function(req, res){
+exports.newBNFT = function(req, res){
 
-	var privateKey = "8d60624a1f2c5eb805a5e6dc8aab9577e9edafa5d5ee867af88f1a7542f86919";
+	console.log("from : " + req.body.from);
 
-	data = {
-		from : "0xE0804701Fb5F86bE3fDa9977B590d7899933a278",
-		bID : 12,
-		ownerName : "배판매",
-		manufacturerName : "SKI",
-		modelName : "SKI_10",
-		manufacturerDate : "2020-11-14",
+	const from = req.body.from;
+	const privateKey = req.body.privateKey;
+
+	const bID = req.body.bID;
+	const manufacturerName = req.body.manufacturerName;
+	const modelName = req.body.modelName;
+	const manufacturerDate = req.body.manufacturerDate;
+
+	var data = {
+		from : from,
+		bID : bID,
+		manufacturerName : manufacturerName,
+		modelName : modelName,
+		manufacturerDate : manufacturerDate,
 	}
 
 	const preparationUrl = bcmUrl + bcmPort + '/api/v1/certificate/preparation/newBNFTTxObject';
@@ -168,9 +175,10 @@ exports.getBalanceOfBPT = function(req, res) {
 
 	console.log("from : " + req.params.from);
 
-	data = {
+	var data = {
 		from : req.params.from
 	}
+
 	const getInfoUrl = bcmUrl + bcmPort + '/api/v1/certificate/balanceOfBPT';
 
 	var OPTIONS = {
@@ -187,19 +195,21 @@ exports.getBalanceOfBPT = function(req, res) {
 
 exports.transferBPT = function(req, res){
 
+	console.log("from : " + req.body.from);
+
 	const from = req.body.from;
 	const privateKey = req.body.privateKey;
 
 	const recipient = req.body.recipient;
 	const amount = req.body.amount;
 
-	data = {
+	var data = {
 		from : from,
 		recipient : recipient,
 		amount : amount
 	}
 
-	const preparationUrl = bcmUrl + bcmPort + '/api/v1/certificate/preparation/TransferBPTTxObject';
+	const preparationUrl = bcmUrl + bcmPort + '/api/v1/certificate/preparation/transferBPTTxObject';
 	const sendSignedUrl = bcmUrl + bcmPort + '/api/v1/certificate/SignedTx';
 
 	var OPTIONS = {
@@ -242,14 +252,15 @@ exports.transferBPT = function(req, res){
 	});
 };
 
-exports.getBalanceOfBNFT = function(req, res) {
+exports.getOwnerOfBNFT = function(req, res) {
 
-	console.log("from : " + req.params.from);
+	console.log("bID : " + req.params.bID);
 
-	data = {
-		from : req.params.from
+	var data = {
+		bID : req.params.bID
 	}
-	const getInfoUrl = bcmUrl + bcmPort + '/api/v1/certificate/balanceOfBNFT';
+
+	const getInfoUrl = bcmUrl + bcmPort + '/api/v1/certificate/ownerOfBNFT';
 
 	var OPTIONS = {
 		headers: {'Content-Type': 'application/json', 'Authorization': authToken},
@@ -263,7 +274,7 @@ exports.getBalanceOfBNFT = function(req, res) {
 	});
 };
 
-exports.TransferFromBNFT = function(req, res){
+exports.transferFromBNFT = function(req, res){
 
 	const from = req.body.from;
 	const privateKey = req.body.privateKey;
@@ -272,7 +283,7 @@ exports.TransferFromBNFT = function(req, res){
 	const transferTo = req.body.transferTo;
 	const bID = req.body.bID;
 
-	data = {
+	var data = {
 		from : from,
 		transferFrom : transferFrom,
 		transferTo : transferTo,
