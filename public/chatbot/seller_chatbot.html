@@ -32,17 +32,17 @@
 	 <form id="frmCheckLatestCertificate" >
 		<p id="checkCertTmpl"  class="aibril">
 			<span class="box">
-				<span>검증 하시려는 배터리 BID, CID를 입력시고 인증서 파일을 첨부 하세요</span>
+				<span>아래 양식에 맞게 배터리 정보를 입력하시고 인증서 파일을 첨부 하세요</span>
 				<span>
-						<span style="font-size: 12px; width: 100%;">BID : <input type="text" id="checkLatestCertificate_bID" name="checkLatestCertificate_bID" class="form-style"  type="text" value="10001"> </span>
-						<span style="font-size: 12px; width: 100%;">CID : <input id="checkLatestCertificate_cID" name="checkLatestCertificate_cID" class="form-style"  type="text" value="20001"> </span>
-						<span style="font-size: 12px; width: 100%;">GRADE : <input type="text" id="checkLatestCertificate_grade" name="checkLatestCertificate_grade" class="form-style"  type="text" value="AA"> </span>
-						<span style="font-size: 12px; width: 100%;">evaluationDate : <input type="text" id="checkLatestCertificate_evaluationDate" name="checkLatestCertificate_evaluationDate" class="form-style"  type="text" value="2020-11-20"> </span>
-						<span style="font-size: 12px; width: 100%;">evaluationAgency : <input type="text" id="checkLatestCertificate_evaluationAgency" name="checkLatestCertificate_evaluationAgency" class="form-style"  type="text" value="SK_Innovation"> </span>
+						<span style="font-size: 12px; width: 100%;">BID : <input type="text" id="checkLatestCertificate_bID" name="checkLatestCertificate_bID" class="form-style"  type="text" value=""> </span>
+						<span style="font-size: 12px; width: 100%;">CID : <input id="checkLatestCertificate_cID" name="checkLatestCertificate_cID" class="form-style"  type="text" value=""> </span>
+						<span style="font-size: 12px; width: 100%;">GRADE : <input type="text" id="checkLatestCertificate_grade" name="checkLatestCertificate_grade" class="form-style"  type="text" value=""> </span>
+						<span style="font-size: 12px; width: 100%;">evaluationDate : <input type="text" id="checkLatestCertificate_evaluationDate" name="checkLatestCertificate_evaluationDate" class="form-style"  type="text" value=""> </span>
+						<span style="font-size: 12px; width: 100%;">evaluationAgency : <input type="text" id="checkLatestCertificate_evaluationAgency" name="checkLatestCertificate_evaluationAgency" class="form-style"  type="text" value=""> </span>
 						<span style="font-size: 12px; width: 100%;"> <input class="form-style" name="cFile" type="file"> </span>
 						<span style="float: right;">
-					    <button type="button" class="btn-type01 btn-redpink" id="sendCert">전송</button>
-					  </span>
+							<button type="button" class="btn-type01 btn-redpink" id="sendCert">전송</button>
+						</span>
 				</span>
 			</span>
 		</p>
@@ -53,10 +53,10 @@
 			<span class="box">
 				<span>token을 받을 사람의 계정 정보, 이체할 BPT 수, 주인님의 개인키를 입력후 [서명 & token 이체] 버튼을 눌러주세요</span>
 				<span>
-					<span style="font-size: 12px; width: 100%;">받을 분 계정 : <input class="form-style" id="sendTokenTmpl_receverId" type="text" value="0xE0804701Fb5F86bE3fDa9977B590d7899933a278"> </span>
-					<span style="font-size: 12px; width: 100%;">이체 할 BPT 수 : <input class="form-style" id="sendTokenTmpl_amount" type="text" value="1"> </span>
-					<span style="font-size: 12px; width: 100%;">고객님 주소 : <input class="form-style" id="sendTokenTmpl_from" type="text" value="0x870A330a7D25bCF080b88d444ddc3C1c0980D442"> </span>
-					<span style="font-size: 12px; width: 100%;">고객님 개인키 : <input class="form-style" id="sendTokenTmpl_privateKey" type="text" value="1d711e8cb6ff4afdff3c1cade8daa0c8fd3589c678f4b2753e04ad261534b05d"> </span>
+					<span style="font-size: 12px; width: 100%;">받을 분 계정 : <input class="form-style" id="sendTokenTmpl_receverId" type="text" value=""> </span>
+					<span style="font-size: 12px; width: 100%;">이체 할 BPT 수 : <input class="form-style" id="sendTokenTmpl_amount" type="text" value=""> </span>
+					<span style="font-size: 12px; width: 100%;">고객님 주소 : <input class="form-style" id="sendTokenTmpl_from" type="text" value=""> </span>
+					<span style="font-size: 12px; width: 100%;">고객님 개인키 : <input class="form-style" id="sendTokenTmpl_privateKey" type="text" value=""> </span>
 					<span style="float: right;">
 				    <button class="btn-type01 btn-redpink" id="sendSignBySendTOken">서명</button>
 				  </span>
@@ -76,10 +76,10 @@
 			<span class="box">
 				<span>배터리 소유권을 받을 사람의 계정 정보, 소유권 이전할 배터리 ID, 주인님의 개인키를 입력후 [서명 & 소유권 이전] 버튼을 눌러주세요</span>
 				<span>
-					<span style="font-size: 12px; width: 100%;">소유권 받을 계정 : <input id="updateOwnerTmpl_toId" class="form-style" type="text" value="0x870A330a7D25bCF080b88d444ddc3C1c0980D442"> </span>
-					<span style="font-size: 12px; width: 100%;">소유권 이전 할 BID : <input id="updateOwnerTmpl_BID" class="form-style" type="text" value="12"> </span>
-					<span style="font-size: 12px; width: 100%;">고객님 주소 : <input id="updateOwnerTmpl_fromId" class="form-style" type="text" value="0xE0804701Fb5F86bE3fDa9977B590d7899933a278"> </span>
-					<span style="font-size: 12px; width: 100%;">고객님 개인키 : <input id="updateOwnerTmpl_fromKey" class="form-style" type="text" value="8d60624a1f2c5eb805a5e6dc8aab9577e9edafa5d5ee867af88f1a7542f86919"> </span>
+					<span style="font-size: 12px; width: 100%;">소유권 받을 계정 : <input id="updateOwnerTmpl_toId" class="form-style" type="text" value=""> </span>
+					<span style="font-size: 12px; width: 100%;">소유권 이전 할 BID : <input id="updateOwnerTmpl_BID" class="form-style" type="text" value=""> </span>
+					<span style="font-size: 12px; width: 100%;">고객님 주소 : <input id="updateOwnerTmpl_fromId" class="form-style" type="text" value=""> </span>
+					<span style="font-size: 12px; width: 100%;">고객님 개인키 : <input id="updateOwnerTmpl_fromKey" class="form-style" type="text" value=""> </span>
 					<span style="float: right;">
 						<button class="btn-type01 btn-redpink" id="sendSignByUpdateOwner">서명</button>
 					</span>
@@ -99,7 +99,7 @@
 			<span class="box">
 				<span>잔액 확인 할 계정정보를 입력 해 주세요.</span>
 				<span>
-					<span style="font-size: 12px; width: 100%;">잔액 확인 할 계정 : <input class="form-style"  type="text" id="checkTokenIdVal" value="0xE0804701Fb5F86bE3fDa9977B590d7899933a278"> </span>
+					<span style="font-size: 12px; width: 100%;">잔액 확인 할 계정 : <input class="form-style"  type="text" id="checkTokenIdVal" value=""> </span>
 					<span style="float: right;">
 				    <button class="btn-type01 btn-redpink" id="checkTokenBtn">전송</button>
 				  </span>
@@ -112,7 +112,7 @@
 			<span class="box">
 				<span>소유권 확인 할 계정정보를 입력 해 주세요.</span>
 				<span>
-					<span style="font-size: 12px; width: 100%;">소유권 확인 할 BID : <input class="form-style"  type="text" id="checkOwnerIdVal" value="BNFT"> </span>
+					<span style="font-size: 12px; width: 100%;">소유권 확인 할 BID : <input class="form-style"  type="text" id="checkOwnerIdVal" value=""> </span>
 					<span style="float: right;">
 				    <button class="btn-type01 btn-redpink" id="checkOwnerBtn">전송</button>
 				  </span>

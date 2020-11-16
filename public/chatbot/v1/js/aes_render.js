@@ -18,9 +18,7 @@
 						render_output : function(data){
 
 							if(data.context.tmpl_id != null && typeof(data.context.tmpl_id) != "undefined"){
-								console.log("remove1");
 								if($('p[id="'+data.context.tmpl_id+'"]').size() > 0){
-									console.log("remove2");
 									$('p[id="'+data.context.tmpl_id+'"]').remove();
 								}
 							}
@@ -60,10 +58,18 @@
 					            success : function(data) {
 
 					                console.log("받아온 result : " + JSON.stringify(data));
-													alert(data);
-													if(data.success){
+													result = new Array();
 
+													if(data.success){
+														if(data.result){
+															result.push("해당 배터리(BID:"+$("#checkLatestCertificate_bID").val()+", CID:"+$("#checkLatestCertificate_cID").val()+")의 인증서의 검증 결과는 아래와 같습니다. 원본 인증서 일치 여부 : 일치, 최신 인증서 여부 : 최신 인증서");
+														}else{
+															result.push("해당 배터리(BID:"+$("#checkLatestCertificate_bID").val()+", CID:"+$("#checkLatestCertificate_cID").val()+")의 인증서의 검증 결과는 아래와 같습니다. 원본 인증서 일치 여부 : 불일치");
+														}
+													}else{
+														result.push("인증서 검증을 실패 하였습니다. ");
 													}
+													$('#achat_output_text').tmpl({ result : result }).appendTo(elem);
 
 					            },beforeSend:function(){
 					                //(이미지 보여주기 처리)

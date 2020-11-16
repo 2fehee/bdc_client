@@ -1,8 +1,8 @@
 
 const BizUrl = "http://localhost";
-const BizPort = ":6001";
-//const Bizport = ":"+location.port
-const BNFT = 2;
+//const BizPort = ":6001";
+const BizPort = ":"+location.port;
+const BNFT = 11;
 
 $(document).ready(function() {
 
