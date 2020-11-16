@@ -1,7 +1,7 @@
 (function($) {
 
 	const BizUrl = "http://localhost";
-	const BizPort = ":6003";
+	const BizPort = ":"+location.port;
 	$.fn.extend({
 		achat_render : function(type, data){
 			var elem = this;
