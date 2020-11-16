@@ -130,7 +130,7 @@
 
 													result = new Array();
 													if(data.success){
-															var result_text = $("#sendTokenTmpl_from").val()+"에게 "+$("#sendTokenTmpl_amount").val()+"BP 보냈습니다.";
+															var result_text = $("#sendTokenTmpl_receverId").val()+"에게 "+$("#sendTokenTmpl_amount").val()+"BP 보냈습니다.";
 															result_text = result_text + "<a href='https://besuscan.chainz.network/tx/"+data.result.replaceAll('"', '')+"' target='_blank'><button class='btn-type01 btn-redpink'>블록체인에서 확인</button></a>";
 															result.push(result_text);
 															//$('#achat_output_text').tmpl({ result : result }).appendTo(elem);

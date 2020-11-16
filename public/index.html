@@ -48,18 +48,18 @@
 
             <form id="frmCreateCertificate" >
                 <p><hr><b>[createCertificate]</b> <button type="button" id="createCertificate_clear">Refresh</button></p>
-                검증자 Address: <input type="text" id="createCertificate_addressFrom" name="createCertificate_addressFrom" style="width:350px;" value="0xFE3B557E8Fb62b89F4916B721be55cEb828dBd73"><p>
-                검증자 PrivateKey : <input type="text" id="createCertificate_privateKey" name="createCertificate_privateKey" style="width:550px;" value="8f2a55949038a9610f50fb23b5883af3b4ecb3c3bb792cbcefbd1542c692be63"><p>
-                bID : <input type="text" id="createCertificate_bID" name="createCertificate_bID" style="width:350px;" value="123"><p>
-                cID : <input type="text" id="createCertificate_cID" name="createCertificate_cID" style="width:350px;" value="123"><p>
-                grade : <input type="text" id="createCertificate_grade" name="createCertificate_grade" style="width:350px;" value="123"><p>
-                evaluationDate : <input type="text" id="createCertificate_evaluationDate" name="createCertificate_evaluationDate" style="width:350px;" value="123"><p>
-                evaluationAgency : <input type="text" id="createCertificate_evaluationAgency" name="createCertificate_evaluationAgency" style="width:350px;" value="123"><p>
+                검증자 Address: <input type="text" id="createCertificate_addressFrom" name="createCertificate_addressFrom" style="width:350px;"><p>
+                검증자 PrivateKey : <input type="text" id="createCertificate_privateKey" name="createCertificate_privateKey" style="width:550px;"><p>
+                bID : <input type="text" id="createCertificate_bID" name="createCertificate_bID" style="width:350px;"><p>
+                cID : <input type="text" id="createCertificate_cID" name="createCertificate_cID" style="width:350px;"><p>
+                grade : <input type="text" id="createCertificate_grade" name="createCertificate_grade" style="width:350px;"><p>
+                evaluationDate : <input type="text" id="createCertificate_evaluationDate" name="createCertificate_evaluationDate" style="width:350px;"><p>
+                evaluationAgency : <input type="text" id="createCertificate_evaluationAgency" name="createCertificate_evaluationAgency" style="width:350px;"><p>
                 <input type="file" name="cFile">
                 <button type="button" id="createCertificate">인증서 생성</button>
             </form>
 
-        <p> 결과 : <input type="text" id="createCertificate_result" >
+        <p> 결과 : <input type="text" id="createCertificate_result" style="width:550px;">
     </div>
 </div>
 
@@ -81,9 +81,9 @@
                 <p><hr><b>[checkLatestCertificate]</b> <button type="button" id="checkLatestCertificate_clear">Refresh</button></p>
                 bID : <input type="text" id="checkLatestCertificate_bID" name="checkLatestCertificate_bID" style="width:350px;"><p>
                 cID : <input type="text" id="checkLatestCertificate_cID" name="checkLatestCertificate_cID" style="width:550px;"><p>
-                grade : <input type="text" id="checkLatestCertificate_grade" name="checkLatestCertificate_grade" style="width:350px;" value="123"><p>
-                evaluationDate : <input type="text" id="checkLatestCertificate_evaluationDate" name="checkLatestCertificate_evaluationDate" style="width:350px;" value="123"><p>
-                evaluationAgency : <input type="text" id="checkLatestCertificate_evaluationAgency" name="checkLatestCertificate_evaluationAgency" style="width:350px;" value="123"><p>
+                grade : <input type="text" id="checkLatestCertificate_grade" name="checkLatestCertificate_grade" style="width:350px;"><p>
+                evaluationDate : <input type="text" id="checkLatestCertificate_evaluationDate" name="checkLatestCertificate_evaluationDate" style="width:350px;"><p>
+                evaluationAgency : <input type="text" id="checkLatestCertificate_evaluationAgency" name="checkLatestCertificate_evaluationAgency" style="width:350px;"><p>
                 <input type="file" name="cFile">
                 <button type="button" id="checkLatestCertificate">checkLatestCertificate</button>
             </form>
@@ -92,40 +92,89 @@
 </div>
 
 <div>
-    <div style="margin-top:100px;">
-        <p> * ERC721 initialize *
+    <div>
+        <div style="margin-top:100px;">
+            <p> * ERC721 초기값 설정 *
+            <p><hr><b>[ERC721 initialize]</b> <button type="button" id="initBNFT_clear">Refresh</button></p>
+            from : <input type="text" id="initBNFT_from" style="width:350px;"><p>
+            privateKey : <input type="text" id="initBNFT_privateKey" style="width:550px;"><p>
+            name : <input type="text" id="initBNFT_name" style="width:350px;"><p>
+            symbol : <input type="text" id="initBNFT_symbol" style="width:350px;"><p>
             <button type="button" id="initBNFT">초기값 설정</button>
-        <p> 결과 : <input type="text" id="initBNFT_result" style="width:550px;">
+            <p> 결과: <input type="text" id="initBNFT_result" style="width:550px;">
+        </div>
     </div>
-    <div style="margin-top:50px;">
-        <p> * ERC20 initialize  *
+    <div>
+        <div style="margin-top:100px;">
+            <p> * ERC20 초기값 설정 *
+            <p><hr><b>[ERC20 initialize]</b> <button type="button" id="initBPT_clear">Refresh</button></p>
+            from : <input type="text" id="initBPT_from" style="width:350px;"><p>
+            privateKey : <input type="text" id="initBPT_privateKey" style="width:550px;"><p>
+            name : <input type="text" id="initBPT_name" style="width:350px;"><p>
+            symbol : <input type="text" id="initBPT_symbol" style="width:350px;"><p>
+            decimals : <input type="text" id="initBPT_decimals" style="width:350px;"><p>
+            initialSupply : <input type="text" id="initBPT_initialSupply" style="width:350px;"><p>
+            initialHolder : <input type="text" id="initBPT_initialHolder" style="width:350px;"><p>
             <button type="button" id="initBPT">초기값 설정</button>
-        <p> 결과 : <input type="text" id="initBPT_result" style="width:550px;">
+            <p> 결과: <input type="text" id="initBPT_result" style="width:550px;">
+        </div>
     </div>
-    <div style="margin-top:50px;">
-        <p> * 소유권 생성 *
+    <div>
+        <div style="margin-top:100px;">
+            <p> * 소유권 생성 *
+            <p><hr><b>[newBNFT]</b> <button type="button" id="newBNFT_clear">Refresh</button></p>
+            from : <input type="text" id="newBNFT_from" style="width:350px;"><p>
+            privateKey : <input type="text" id="newBNFT_privateKey" style="width:550px;"><p>
+            bID : <input type="text" id="newBNFT_bID" style="width:350px;"><p>
+            manufacturerName : <input type="text" id="newBNFT_manufacturerName" style="width:350px;"><p>
+            modelName : <input type="text" id="newBNFT_modelName" style="width:350px;"><p>
+            manufacturerDate : <input type="text" id="newBNFT_manufacturerDate" style="width:350px;"><p>
             <button type="button" id="newBNFT">생성</button>
-            <p> 결과 : <input type="text" id="newBNFT_result" style="width:550px;">
+            <p> 결과: <input type="text" id="newBNFT_result" style="width:550px;">
+        </div>
     </div>
-    <div style="margin-top:50px;">
-        <p> * 토큰 조회 *
+    <div>
+        <div style="margin-top:100px;">
+            <p> * 토큰 조회 *
+            <p><hr><b>[getBalanceOfBPT]</b> <button type="button" id="getBalanceOfBPT_clear">Refresh</button></p>
+            from : <input type="text" id="getBalanceOfBPT_from" style="width:350px;"><p>
             <button type="button" id="getBalanceOfBPT">조회</button>
-            <p> 결과 : <input type="text" id="getBalanceOfBPT_result" style="width:550px;">
+            <p> 결과: <input type="text" id="getBalanceOfBPT_result" style="width:550px;">
+        </div>
     </div>
-    <div style="margin-top:50px;">
-        <p> * 토큰 전송 *
+    <div>
+        <div style="margin-top:100px;">
+            <p> * 토큰 전송 *
+            <p><hr><b>[transferBPT]</b> <button type="button" id="transferBPT_clear">Refresh</button></p>
+            from : <input type="text" id="transferBPT_from" style="width:350px;"><p>
+            privateKey : <input type="text" id="transferBPT_privateKey" style="width:550px;"><p>
+            recipient : <input type="text" id="transferBPT_recipient" style="width:350px;"><p>
+            amount : <input type="text" id="transferBPT_amount" style="width:350px;"><p>
             <button type="button" id="transferBPT">전송</button>
-            <p> 결과 : <input type="text" id="transferBPT_result" style="width:550px;">
+            <p> 결과: <input type="text" id="transferBPT_result" style="width:550px;">
+        </div>
     </div>
-    <div style="margin-top:50px;">
-        <p> * 소유권 확인 *
+    <div>
+        <div style="margin-top:100px;">
+            <p> * 소유권 확인 *
+            <p><hr><b>[getBalanceOfBPT]</b> <button type="button" id="getOwnerOfBNFT_clear">Refresh</button></p>
+            bID : <input type="text" id="getOwnerOfBNFT_bID" style="width:350px;"><p>
             <button type="button" id="getOwnerOfBNFT">확인</button>
-            <p> 결과 : <input type="text" id="getOwnerOfBNFT_result" style="width:550px;">
+            <p> 결과: <input type="text" id="getOwnerOfBNFT_result" style="width:550px;">
+        </div>
     </div>
-    <div style="margin-top:50px;">
-        <p> * 소유권 이전 *
+    <div>
+        <div style="margin-top:100px;">
+            <p> * 소유권 이전 *
+            <p><hr><b>[transferFromBNFT]</b> <button type="button" id="transferFromBNFT_clear">Refresh</button></p>
+            from : <input type="text" id="transferFromBNFT_from" style="width:350px;"><p>
+            privateKey : <input type="text" id="transferFromBNFT_privateKey" style="width:550px;"><p>
+            transferFrom : <input type="text" id="transferFromBNFT_transferFrom" style="width:350px;"><p>
+            transferTo : <input type="text" id="transferFromBNFT_transferTo" style="width:350px;"><p>
+            bID : <input type="text" id="transferFromBNFT_bID" style="width:350px;"><p>
             <button type="button" id="transferFromBNFT">이전</button>
-            <p> 결과 : <input type="text" id="transferFromBNFT_result" style="width:550px;">
+            <p> 결과: <input type="text" id="transferFromBNFT_result" style="width:550px;">
+        </div>
     </div>
 </div>
 
