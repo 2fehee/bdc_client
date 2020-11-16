@@ -7,21 +7,6 @@ const BNFT = 2;
 $(document).ready(function() {
 
     $("#createCertificate").on('click', function(event) {
-        alert('11111');
-
-        /*
-        input_data = {};
-
-        input_data.from = $("#createCertificate_addressFrom").val();
-        input_data.privateKey = $("#createCertificate_privateKey").val();
-
-        input_data.bID = $("#createCertificate_bID").val();
-        input_data.cID = $("#createCertificate_cID").val();
-        input_data.grade = $("#createCertificate_grade").val();
-        input_data.evaluationDate = $("#createCertificate_evaluationDate").val();
-        input_data.evaluationAgency = $("#createCertificate_evaluationAgency").val();
-        input_data.certificateHash = $("#createCertificate_certificateHash").val();
-        */
 
         //preventDefault 는 기본으로 정의된 이벤트를 작동하지 못하게 하는 메서드이다. submit을 막음
         event.preventDefault();
@@ -34,12 +19,10 @@ $(document).ready(function() {
 
 
         $.ajax({
-           // url : BizUrl + BizPort + '/signCreateCertificate',
-            url : BizUrl + BizPort + '/upload2',
+            url : BizUrl + BizPort + '/signCreateCertificate',
             type: 'POST',
             enctype: 'multipart/form-data',
             dataType: 'json',
-
             data: data,
             processData: false,
             contentType: false,
@@ -92,20 +75,37 @@ $(document).ready(function() {
 
     $("#checkLatestCertificate").on('click', function(event) {
 
-        var bID = $("#checkLatestCertificate_bID").val();
-        var cID = $("#checkLatestCertificate_cID").val();
-        var certificateHash = $("#checkLatestCertificate_certificateHash").val();
+        //preventDefault 는 기본으로 정의된 이벤트를 작동하지 못하게 하는 메서드이다. submit을 막음
+        event.preventDefault();
+
+        // Get form
+        var form = $('#frmCheckLatestCertificate')[0];
+
+        // Create an FormData object
+        var data = new FormData(form);
 
         $.ajax({
-            url : BizUrl + BizPort + '/checkLatestCertificate/bID/' + bID + '/cID/' + cID + '/certificateHash/' + certificateHash,
-            crossDomain: true,
-            cache: false,
-            type: 'GET',
+            url : BizUrl + BizPort + '/checkLatestCertificate',
+            type: 'POST',
+            enctype: 'multipart/form-data',
             dataType: 'json',
-            contentType: "application/json; charset=utf-8",
+            data: data,
+            processData: false,
+            contentType: false,
+            cache: false,
+            timeout: 600000,
             success : function(result) {
-                console.log("checkLatestCertificate 결과 값: " + JSON.stringify(result));
-                $("#checkLatestCertificate_result").val(result.result);
+
+                console.log("받아온 result : " + JSON.stringify(result));
+                $("#checkLatestCertificate_result").val(JSON.stringify(result.result));
+
+            },beforeSend:function(){
+                //(이미지 보여주기 처리)
+                $('.wrap-loading').removeClass('display-none');
+            }
+            ,complete:function(){
+                //(이미지 감추기 처리)
+                $('.wrap-loading').addClass('display-none');
             },
             error : function(xhr, status, error){
                 console.log("xhr : " + xhr);

@@ -71,14 +71,17 @@ exports.certificateInfo = function(req, res) {
 
 	console.log("bID : " + req.params.bID);
 
-    const bID = req.params.bID;
-    const cID = req.params.cID;
+	var data = {
+		bID : req.params.bID,
+		cID : req.params.cID,
+	}
 
-    const getInfoUrl = bcmUrl + bcmPort + '/api/v1/certificate/certificateInfo?bID=' + bID + '&cID=' + cID;
+    const getInfoUrl = bcmUrl + bcmPort + '/api/v1/certificate/certificateInfo';
 
     var OPTIONS = {
         headers: {'Content-Type': 'application/json', 'Authorization': authToken},
-        url: getInfoUrl
+        url: getInfoUrl,
+		qs: data,
     };
 
     request.get(OPTIONS, function (err, response, result) {
@@ -91,20 +94,23 @@ exports.checkLatestCertificate = function(req, res) {
 
 	console.log("bID : " + req.params.bID);
 
-	const bID = req.params.bID;
-	const cID = req.params.cID;
-	const certificateHash = req.params.certificateHash;
+	var data = {
+		bID : req.params.bID,
+		cID : req.params.cID,
+		certificateHash : req.params.certificateHash,
+	}
 
-	const getInfoUrl = bcmUrl + bcmPort + '/api/v1/certificate/checkLatestCertificate?bID=' + bID + '&cID=' + cID + '&certificateHash=' + certificateHash;
+	const getInfoUrl = bcmUrl + bcmPort + '/api/v1/certificate/checkLatestCertificate';
 
 	var OPTIONS = {
-			headers: {'Content-Type': 'application/json', 'Authorization': authToken},
-			url: getInfoUrl
+		headers: {'Content-Type': 'application/json', 'Authorization': authToken},
+		url: getInfoUrl,
+		qs:data,
 	};
 
 	request.get(OPTIONS, function (err, response, result) {
-			console.log("result: " + result);
-			res.json(JSON.parse(result));
+		console.log("result: " + result);
+		res.json(JSON.parse(result));
 	});
 };
 

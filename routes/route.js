@@ -14,12 +14,12 @@ const authToken = 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJwNH
 var fs = require('fs');
 
 // function to encode file data to base64 encoded string
-function base64_encode(file) {
-	// read binary data
-	var bitmap = fs.readFileSync(file);
-	// convert binary data to base64 encoded string
-	return new Buffer(bitmap).toString('base64');
-}
+// function base64_encode(file) {
+// 	// read binary data
+// 	var bitmap = fs.readFileSync(file);
+// 	// convert binary data to base64 encoded string
+// 	return new Buffer(bitmap).toString('base64');
+// }
 
 module.exports = function(app, api){
 	let storage = multer.diskStorage({
@@ -45,25 +45,33 @@ module.exports = function(app, api){
 
 	// upload.none(): only for text-only multipart form
 	// upload.single('field-name'): only one file
-	app.post(['/upload2'], upload.any(), (req, res) => {
+	app.post(['/signCreateCertificate'], upload.any(), (req, res) => {
 		console.log(req.body);
 		console.log(req.files);
 		console.log(req.files[0].path);
-		var base64str = base64_encode(req.files[0].path);
-		console.log(base64str);
+		let data = fs.readFileSync(path.join(__dirname,'/../uploads/',req.files[0].filename));
+
+		let buf = Buffer.from(data);
+		let base64str = buf.toString('base64');
+		console.log('Base64 of xxx.pdf :' + base64str);
+
+		input_data = {};
+
+		input_data.from = req.body.createCertificate_addressFrom;
+		input_data.bID = req.body.createCertificate_bID;
+		input_data.cID = req.body.createCertificate_cID;
+		input_data.grade = req.body.createCertificate_grade;
+		input_data.evaluationDate = req.body.createCertificate_evaluationDate;
+		input_data.evaluationAgency = req.body.createCertificate_evaluationAgency;
+		input_data.cFile = base64str;
+
+		const preparationUrl = bcmUrl + bcmPort + '/api/v1/certificate/preparation/newCertiTxObject';
+		const sendSignedUrl = bcmUrl + bcmPort + '/api/v1/certificate/SignedTx';
 
 		var OPTIONS = {
 			headers:{"Content-Type":"application/json",Accept:"application/json"},
-			url: bcmUrl + bcmPort + '/api/v1/certificate/preparation/newCertiTxObject',
-			qs:{
-				'from' : req.body.createCertificate_addressFrom,
-				'bID'  : req.body.createCertificate_bID,
-				'cID'  : req.body.createCertificate_cID,
-				'grade': req.body.createCertificate_grade,
-				'evaluationDate' : req.body.createCertificate_evaluationDate,
-				'evaluationAgency': req.body.createCertificate_evaluationAgency,
-				'cFile': base64str
-			}
+			url: preparationUrl,
+			body: JSON.stringify(input_data)
 		};
 
 		request.post(OPTIONS, function (err, response, result) {
@@ -84,7 +92,6 @@ module.exports = function(app, api){
 			let signedData = '0x' + serializedTx.toString('hex');       //hex 값으로 변경
 			console.log("signedData : " + signedData);
 
-			/*
 			var OPTIONS = {
 				headers: {'Content-Type': 'application/json', 'Authorization': authToken},
 				url: sendSignedUrl,
@@ -98,17 +105,46 @@ module.exports = function(app, api){
 				console.log("txResult: " + txResult);
 				res.json(JSON.parse(txResult));
 			});
-			*/
 		});
-
-		res.send("hello world");
 	});
 
+	app.post(['/checkLatestCertificate'], upload.any(), (req, res) => {
+		console.log(req.body);
+		console.log(req.files);
+		console.log(req.files[0].path);
+		let data = fs.readFileSync(path.join(__dirname,'/../uploads/',req.files[0].filename));
+
+		let buf = Buffer.from(data);
+		let base64str = buf.toString('base64');
+		console.log('Base64 of xxx.pdf :' + base64str);
+
+		input_data = {};
+
+		input_data.bID = req.body.checkLatestCertificate_bID;
+		input_data.cID = req.body.checkLatestCertificate_cID;
+		input_data.grade = req.body.checkLatestCertificate_grade;
+		input_data.evaluationDate = req.body.checkLatestCertificate_evaluationDate;
+		input_data.evaluationAgency = req.body.checkLatestCertificate_evaluationAgency;
+		input_data.cFile = base64str;
+
+		const getInfoUrl = bcmUrl + bcmPort + '/api/v1/certificate/checkLatestCertificate';
+
+		var OPTIONS = {
+			headers: {'Content-Type': 'application/json', 'Authorization': authToken},
+			url: getInfoUrl,
+			body: JSON.stringify(input_data)
+		};
+
+		request.post(OPTIONS, function (err, response, result) {
+			console.log("result: " + result);
+			res.json(JSON.parse(result));
+		});
+	});
 	//-----------------------------------------------------------------
 	//블록체인 서비스 연결
 	//app.post('/signCreateCertificate', api.block.signCreateCertificate);
 	app.get('/certificateInfo/bID/:bID/cID/:cID', api.block.certificateInfo);
-	app.get('/checkLatestCertificate/bID/:bID/cID/:cID/certificateHash/:certificateHash', api.block.checkLatestCertificate);
+	//app.get('/checkLatestCertificate/bID/:bID/cID/:cID/certificateHash/:certificateHash', api.block.checkLatestCertificate);
 	app.post('/newBNFT', api.block.newBNFT);
 	app.get('/getBalanceOfBPT/from/:from', api.block.getBalanceOfBPT);
 	app.post('/transferBPT', api.block.transferBPT);
