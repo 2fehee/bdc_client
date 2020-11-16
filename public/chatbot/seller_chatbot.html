@@ -29,19 +29,24 @@
     {{/each}}
 	</script>
 	<script id="checkCertTmpl" type="text/j-query-tmpl">
+	 <form id="frmCheckLatestCertificate" >
 		<p id="checkCertTmpl"  class="aibril">
 			<span class="box">
 				<span>검증 하시려는 배터리 BID, CID를 입력시고 인증서 파일을 첨부 하세요</span>
 				<span>
-					<span style="font-size: 12px; width: 100%;">BID : <input class="form-style"  type="text" value=""> </span>
-					<span style="font-size: 12px; width: 100%;">CID : <input class="form-style"  type="text" value=""> </span>
-					<span style="font-size: 12px; width: 100%;"> <input class="form-style"  type="file" value=""> </span>
-					<span style="float: right;">
-				    <button class="btn-type01 btn-redpink" id="sendCert">전송</button>
-				  </span>
+						<span style="font-size: 12px; width: 100%;">BID : <input type="text" id="checkLatestCertificate_bID" name="checkLatestCertificate_bID" class="form-style"  type="text" value="10001"> </span>
+						<span style="font-size: 12px; width: 100%;">CID : <input id="checkLatestCertificate_cID" name="checkLatestCertificate_cID" class="form-style"  type="text" value="20001"> </span>
+						<span style="font-size: 12px; width: 100%;">GRADE : <input type="text" id="checkLatestCertificate_grade" name="checkLatestCertificate_grade" class="form-style"  type="text" value="AA"> </span>
+						<span style="font-size: 12px; width: 100%;">evaluationDate : <input type="text" id="checkLatestCertificate_evaluationDate" name="checkLatestCertificate_evaluationDate" class="form-style"  type="text" value="2020-11-20"> </span>
+						<span style="font-size: 12px; width: 100%;">evaluationAgency : <input type="text" id="checkLatestCertificate_evaluationAgency" name="checkLatestCertificate_evaluationAgency" class="form-style"  type="text" value="SK_Innovation"> </span>
+						<span style="font-size: 12px; width: 100%;"> <input class="form-style" name="cFile" type="file"> </span>
+						<span style="float: right;">
+					    <button type="button" class="btn-type01 btn-redpink" id="sendCert">전송</button>
+					  </span>
 				</span>
 			</span>
 		</p>
+		</form>
 	</script>
 	<script id="sendTokenTmpl" type="text/j-query-tmpl">
 		<p id="sendTokenTmpl" class="aibril">

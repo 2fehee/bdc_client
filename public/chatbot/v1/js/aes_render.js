@@ -1,7 +1,7 @@
 (function($) {
 
 	const BizUrl = "http://localhost";
-	const BizPort = ":6001";
+	const BizPort = ":6003";
 	$.fn.extend({
 		achat_render : function(type, data){
 			var elem = this;
@@ -40,9 +40,44 @@
 								$('#'+data.context.tmpl_id).tmpl({ result : result }).appendTo(elem);
 
 								$("#sendCert").unbind('click').click(function(){
-									alert('인증서 전송');
+									// Get form
+					        var form = $('#frmCheckLatestCertificate')[0];
+									console.log(form);
 
-									this.callback_message();
+					        // Create an FormData object
+					        var data = new FormData(form);
+
+					        $.ajax({
+					            url : BizUrl + BizPort + '/checkLatestCertificate',
+					            type: 'POST',
+					            enctype: 'multipart/form-data',
+					            dataType: 'json',
+					            data: data,
+					            processData: false,
+					            contentType: false,
+					            cache: false,
+					            timeout: 600000,
+					            success : function(data) {
+
+					                console.log("받아온 result : " + JSON.stringify(data));
+													alert(data);
+													if(data.success){
+
+													}
+
+					            },beforeSend:function(){
+					                //(이미지 보여주기 처리)
+					                $('.wrap-loading').removeClass('display-none');
+					            }
+					            ,complete:function(){
+					                //(이미지 감추기 처리)
+					                $('.wrap-loading').addClass('display-none');
+					            },
+					            error : function(xhr, status, error){
+					                console.log("xhr : " + xhr);
+					                console.log(error);
+					            }
+					        });
 								});
 							}else if (data.context.tmpl_id == "sendTokenTmpl"){
 								console.log("토큰 전송 템플릿");
